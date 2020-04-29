@@ -1,0 +1,5 @@
+- npm install redux --save
+- npm install --save react-redux
+- rm -rf .git
+- npm install
+- npm start
