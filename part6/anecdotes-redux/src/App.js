@@ -25,7 +25,7 @@ const App = () => {
       )}
       <h2>create new</h2>
       <form>
-        <div><input /></div>
+        <div><input name="anecdote" /></div>
         <button>create</button>
       </form>
     </div>
