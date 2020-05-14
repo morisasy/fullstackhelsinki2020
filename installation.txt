@@ -3,3 +3,4 @@
 - rm -rf .git
 - npm install
 - npm start
+

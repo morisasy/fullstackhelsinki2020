@@ -54,7 +54,7 @@ export const createAnecdote = (anecdote) => {
   }
 }
 
-export const castVote = id => {
+export const castVoteOf = id => {
   return{
     type: 'VOTE',
     data:{ id }
