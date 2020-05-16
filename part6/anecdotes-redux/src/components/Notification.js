@@ -1,19 +1,17 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import React from 'react'
 
-const Notification = ({notification}) => {
+const Notification = () => {
+  const notification = useSelector(state => state.notification)
   const style = {
     border: 'solid',
     padding: 10,
     borderWidth: 1
   }
   return (
-    <div>
-        {notification ?
-          <div style={style}>
-            {notification}
-          </div>
-          : null
-        }
+    <div style={style}>
+      {notification}
     </div>
   )
 }
