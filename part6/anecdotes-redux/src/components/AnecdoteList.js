@@ -3,9 +3,9 @@ import { castVoteOf} from '../reducers/anecdoteReducer'
 import { useSelector, useDispatch } from 'react-redux'
 
 
-const AnecdoteList = (props) => {
+const AnecdoteList = () => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(state => state.anecdote)
 
 
   const vote = (id) => {
@@ -24,9 +24,9 @@ const AnecdoteList = (props) => {
                         has {anecdote.votes}
                         <button onClick={() => vote(anecdote.id)}>vote</button>
                     </div>
-             </div>
+               </div>
            )}
-    </div>
+     </div>
   )
 }
 
