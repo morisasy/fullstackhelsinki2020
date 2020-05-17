@@ -1,5 +1,5 @@
 import React from 'react'
-import { filterChange } from '../reducers/filterReducer'
+import { filterChange } from './filterReducer'
 
 const Filter = () => {
   const handleChange = (event) => {
