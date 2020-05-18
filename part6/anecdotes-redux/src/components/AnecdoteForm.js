@@ -4,14 +4,14 @@ import { createAnecdote} from '../reducers/anecdoteReducer'
 import { setNotification} from '../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
-    const dispatch = useDispatch(state => state)
+    const dispatch = useDispatch()
        
     const addAnecdote = (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
         event.target.anecdote.value = ''
         dispatch(createAnecdote(content))
-        setNotification(`You added: "${content}"`, 5)
+        setNotification(`You have added: "${content}"`, 5)
       
         
     }
