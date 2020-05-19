@@ -12,6 +12,7 @@ const AnecdoteForm = (props) => {
         event.target.anecdote.value = ''
         dispatch(createAnecdote(content))
         setNotification(`You have added: "${content}"`, 5)
+        console.log('You just added for ', content)
       
         
     }

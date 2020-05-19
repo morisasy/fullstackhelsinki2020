@@ -1,11 +1,20 @@
 
-const addNotification = (content) =>{
+
+const displayNotification = (content) =>{
   return {
     type: 'SET_NOTIFICATION',
     data: content
   }
 }
-const notificationReducer = (state = null, action) => { 
+
+const clearNotification = () =>{
+  return {
+    type: 'SET_NOTIFICATION',
+    data: null
+  }
+}
+
+const notificationReducer = (state = '', action) => { 
   switch (action.type) {
       case 'SET_NOTIFICATION':
         return action.data
@@ -16,12 +25,9 @@ const notificationReducer = (state = null, action) => {
   
   export const setNotification = (content, timer) => {
     return dispatch =>{
-      dispatch(addNotification(content))
+      dispatch(displayNotification(content))
         setTimeout(() => {
-          dispatch({
-            type: 'SET_NOTIFICATION',
-            data: null
-          })
+          dispatch(clearNotification())
         }, timer*1000)
    }
   }

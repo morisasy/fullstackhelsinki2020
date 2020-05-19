@@ -11,12 +11,7 @@ const Notification = () => {
   }
   return (
           <div>
-              {notification ?
-                            <div style={style}>
-                              {notification}
-                            </div>
-                              : null
-                        }        
+              {notification && <div style={style}>{notification}</div> }        
           </div>
   )
 }
