@@ -5,7 +5,7 @@ export const filterChange = filter => {
     }
   }
   
-  const reducerFilter = (state = '', action) => {
+  const filterReducer = (state = '', action) => {
     console.log('filterReducer: state, action: ', state, action)
     switch (action.type) {
       case 'SET_FILTER':
@@ -15,4 +15,4 @@ export const filterChange = filter => {
     }
   }
   
-  export default reducerFilter
+  export default filterReducer
