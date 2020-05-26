@@ -19,6 +19,12 @@ const AnecdoteList = (props) => {
    
   }
 
+  const filterAnecdote = (anecdotes, filter)=>{
+    return anecdotes
+    .filter(anecdote => anecdote.content.includes(filter))
+    .sort((a, b) => b.votes - a.votes);
+  }
+
   return(
       <div>
            {anecdotes.map(anecdote =>

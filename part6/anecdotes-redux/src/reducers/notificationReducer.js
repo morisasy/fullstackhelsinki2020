@@ -3,10 +3,10 @@ const initialNotification = {
   isDisplay: false
 }
 
-const notificationReducer = (state = initialNotification, action) => { 
+const notificationReducer = (state =[], action) => { 
   switch (action.type) {
       case 'SET_NOTIFICATION':
-        return {...action.data}
+        return state.concat(action.data)
       default:
         return state
     }
