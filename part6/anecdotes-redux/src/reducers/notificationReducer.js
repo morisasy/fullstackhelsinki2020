@@ -1,19 +1,22 @@
-const initialNotification = {
+const initialState= {
+  isDisplay: false,
   content: ''
+
 }
 
 export const displayNotification = (content) =>{
   return {
     type: 'SET_NOTIFICATION',
     data: {
-      content
+      isDisplay: true,
+      content  
     }
   }
 }
 
 
 export const clearNotification = () =>{
-  return displayNotification(initialNotification)
+  return displayNotification(initialState)
 }
 
 
@@ -24,11 +27,11 @@ export const setNotification = (content) => {
       dispatch(displayNotification(content))
         setTimeout(() => {
           dispatch(clearNotification())
-        }, 5000)
+        }, 6000)
    }
   }
 
-  const notificationReducer = (state =initialNotification, action) => { 
+  const notificationReducer = (state =initialState, action) => { 
     console.log('notificationReducer: state, action: ', state, action)
     switch (action.type) {
         case 'SET_NOTIFICATION':

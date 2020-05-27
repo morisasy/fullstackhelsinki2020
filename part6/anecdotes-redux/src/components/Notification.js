@@ -11,7 +11,7 @@ const Notification = () => {
   }
   return (
           <div>
-              {notification.content && <div style={style}>{notification.content}</div> }        
+              {notification.isDispaly && <div style={style}>{notification.content}</div> }        
           </div>
   )
 }

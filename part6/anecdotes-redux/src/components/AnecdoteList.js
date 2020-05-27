@@ -24,7 +24,7 @@ const AnecdoteList = (props) => {
   }
 
   const filterAnecdote = (anecdotes, filter)=>{
-    if (filter === ''){
+    if (filter){
       let anecdotesFound = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
 
       return  anecdotesFound.sort((a, b) => b.votes - a.votes)
