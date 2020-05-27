@@ -7,7 +7,11 @@ import { setNotification } from '../reducers/notificationReducer'
 const AnecdoteList = (props) => {
   //const { castVoteOf, setNotification } = props;
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state.anecdote)
+  //const anecdotes = useSelector(state => state.anecdote)
+  const anecdotesData = useSelector(state => state)
+  const anecdotes = anecdotesData.anecdote
+  console.log('anacdotesData ', anecdotesData)
+ 
 
 
 
@@ -20,9 +24,13 @@ const AnecdoteList = (props) => {
   }
 
   const filterAnecdote = (anecdotes, filter)=>{
+    if (filter === ''){
+      let anecdotesFound = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
+
+      return  anecdotesFound.sort((a, b) => b.votes - a.votes)
+    }
     return anecdotes
-    .filter(anecdote => anecdote.content.includes(filter))
-    .sort((a, b) => b.votes - a.votes);
+   
   }
 
   return(

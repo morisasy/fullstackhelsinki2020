@@ -1,10 +1,10 @@
 import React from 'react'
-import { filterChange } from '../reducers/filterReducer'
+import { setFilter } from '../reducers/filterReducer'
 
 const Filter = () => {
   const handleChange = (event) => {
     const filter = event.target.value
-    filterChange(filter)
+    setFilter(filter)
   }
   const style = {
     marginBottom: 10
