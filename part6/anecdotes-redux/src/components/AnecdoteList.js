@@ -1,41 +1,23 @@
 import React from 'react'
 import { castVoteOf} from '../reducers/anecdoteReducer' 
-import { useSelector, useDispatch } from 'react-redux'
+//import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux';
 import { setNotification } from '../reducers/notificationReducer'
 
 
-const AnecdoteList = (props) => {
-  //const { castVoteOf, setNotification } = props;
-  const dispatch = useDispatch()
-  //const anecdotes = useSelector(state => state.anecdote)
-  const anecdotesData = useSelector(state => state)
-  const anecdotes = anecdotesData.anecdote
-  console.log('anacdotesData ', anecdotesData)
+const AnecdoteList = ({ displayAnecdotes, castVoteOf, setNotification }) => {
  
-
-
-
   const vote = (anecdote) => {
     console.log('vote', anecdote.id)
-    dispatch(castVoteOf(anecdote.id))
+    castVoteOf(anecdote.id)
     setNotification(`You just voted for ${anecdote.content}`, 5)
     console.log('You just voted for ', anecdote.content)
    
   }
 
-  const filterAnecdote = (anecdotes, filter)=>{
-    if (filter){
-      let anecdotesFound = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
-
-      return  anecdotesFound.sort((a, b) => b.votes - a.votes)
-    }
-    return anecdotes
-   
-  }
-
   return(
       <div>
-           {anecdotes.map(anecdote =>
+           { displayAnecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                     <div>
                         {anecdote.content}
@@ -50,4 +32,27 @@ const AnecdoteList = (props) => {
   )
 }
 
-export default AnecdoteList
+
+const annecdotesToDisplay = (state) => {
+  console.log("anecdotes", state.anecdote, state.filter)
+  return state.anecdote
+         .filter(anecdote => anecdote.content.toLowerCase().includes(state.filter.toLowerCase()))
+         .sort((a, b) => b.votes - a.votes)
+}
+
+const mapStateToProps = state => {
+  console.log("mapStateToProps's State", state)
+  return {
+    displayAnecdotes: annecdotesToDisplay(state)
+    
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    castVoteOf: id => dispatch(castVoteOf(id)),
+    setNotification: (content, duration) => dispatch(setNotification(content, duration))
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)

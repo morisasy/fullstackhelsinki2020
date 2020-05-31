@@ -14,7 +14,7 @@ const AnecdoteForm = ({ createAnecdote, setNotification }) => {
         //dispatch(createAnecdote(content))
         createAnecdote(content)
         let msgNotification = `You have added: ${content}`
-        setNotification(msgNotification)
+        setNotification(msgNotification, 5)
         console.log(msgNotification)
         
     }

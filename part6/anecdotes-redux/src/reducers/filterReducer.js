@@ -1,7 +1,4 @@
-export const setFilter = filter => {
-    return { type: 'SET_FILTER',filter}
-  }
-  
+
   const filterReducer = (state = '', action) => {
     console.log('filterReducer: state, action: ', state, action)
     switch (action.type) {
@@ -11,5 +8,10 @@ export const setFilter = filter => {
         return state
     }
   }
+
+export const setFilter = filter => {
+    return { type: 'SET_FILTER',filter}
+  }
+  
   
   export default filterReducer

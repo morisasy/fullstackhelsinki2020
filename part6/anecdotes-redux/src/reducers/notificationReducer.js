@@ -23,14 +23,14 @@ export const clearNotification = () =>({
 
 
   
-export const setNotification = (content) => {
+export const setNotification = (content, duration) => {
   console.log('setNotification: content: ', content)
     return dispatch =>{
       dispatch(displayNotification(content))
 
     setTimeout(() => {
       dispatch(clearNotification())
-    }, 5 * 1000)
+    }, duration * 1000)
        
    }
   }

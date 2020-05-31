@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { setFilter } from '../reducers/filterReducer'
 
-const Filter = () => {
+const Filter = ({setFilter}) => {
   const handleChange = (event) => {
     const filter = event.target.value
     setFilter(filter)
@@ -17,4 +18,4 @@ const Filter = () => {
   )
 }
 
-export default Filter
+export default connect(null, {setFilter })(Filter)
