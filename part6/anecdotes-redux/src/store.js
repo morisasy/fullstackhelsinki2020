@@ -6,6 +6,9 @@ import anecdoteReducer from './reducers/anecdoteReducer'
 import filterReducer from './reducers/filterReducer'
 import notificationReducer from './reducers/notificationReducer'
 
+// import * as reducers from './reducers'
+// const todoApp = combineReducers(reducers)
+
 const reducer = combineReducers({
   anecdote: anecdoteReducer,
   filter: filterReducer,

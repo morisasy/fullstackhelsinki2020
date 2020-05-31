@@ -1,8 +1,5 @@
 export const setFilter = filter => {
-    return {
-      type: 'SET_FILTER',
-      filter
-    }
+    return { type: 'SET_FILTER',filter}
   }
   
   const filterReducer = (state = '', action) => {

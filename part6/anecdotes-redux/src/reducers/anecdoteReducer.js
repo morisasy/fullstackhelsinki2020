@@ -56,10 +56,7 @@ export const createAnecdote = (anecdote) => {
 }
 
 export const castVoteOf = id => {
-  return{
-    type: 'VOTE',
-    data:{ id }
-  }
+  return{type: 'VOTE', data:{ id }}
  }
 
 export default anecdoteReducer

@@ -1,16 +1,10 @@
-- npm install redux --save
-- npm install --save react-redux
-- npm install --save redux-devtools-extension
 - rm -rf .git
 - npm install
 - npm start
+- npm install redux --save
+- npm install --save react-redux
+- npm install --save redux-devtools-extension
 
 
 
- const store = createStore(
-  reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk)
-  )
-)
 
