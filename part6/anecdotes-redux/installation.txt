@@ -4,6 +4,9 @@
 - npm install redux --save
 - npm install --save react-redux
 - npm install --save redux-devtools-extension
+- npm install json-server --save-dev
+- npm run server
+
 
 
 

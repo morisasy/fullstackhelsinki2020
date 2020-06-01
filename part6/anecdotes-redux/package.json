@@ -15,6 +15,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "server": "json-server -p3001 --watch anecdotes.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -34,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.16.1"
   }
 }

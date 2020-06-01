@@ -10,7 +10,7 @@ const AnecdoteList = ({ displayAnecdotes, castVoteOf, setNotification }) => {
   const vote = (anecdote) => {
     console.log('vote', anecdote.id)
     castVoteOf(anecdote.id)
-    setNotification(`You just voted for ${anecdote.content}`, 5)
+    setNotification(`You just voted for '${anecdote.content}'`, 10)
     console.log('You just voted for ', anecdote.content)
    
   }
