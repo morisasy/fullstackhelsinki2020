@@ -34,7 +34,7 @@ const AnecdoteList = ({ displayAnecdotes, castVoteOf, setNotification }) => {
 
 
 const annecdotesToDisplay = (state) => {
-  console.log("anecdotes", state.anecdote, state.filter)
+  console.log("anecdotes, filter", state.anecdote, state.filter)
   return state.anecdote
          .filter(anecdote => anecdote.content.toLowerCase().includes(state.filter.toLowerCase()))
          .sort((a, b) => b.votes - a.votes)
@@ -48,11 +48,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    castVoteOf: id => dispatch(castVoteOf(id)),
-    setNotification: (content, duration) => dispatch(setNotification(content, duration))
-   }
+const mapDispatchToProps = {
+    castVoteOf,
+    setNotification 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)

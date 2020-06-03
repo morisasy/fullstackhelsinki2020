@@ -11,7 +11,6 @@ const AnecdoteForm = ({ createAnecdote, setNotification }) => {
         event.preventDefault()
         const content = event.target.anecdote.value
         event.target.anecdote.value = ''
-       // dispatch(createAnecdote(content))
         createAnecdote(content)
         let msgNotification = `You have added: ${content}`
         setNotification(msgNotification, 5)
