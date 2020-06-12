@@ -1,20 +1,10 @@
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useRouteMatch,
-  useHistory,
-} from "react-router-dom"
-
 
 const CreateNew = (props) => {
     const [content, setContent] = useState('')
     const [author, setAuthor] = useState('')
     const [info, setInfo] = useState('')
+  
   
   
     const handleSubmit = (e) => {

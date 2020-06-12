@@ -4,10 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect,
-  useRouteMatch,
-  useHistory,
+  useRouteMatch 
 } from "react-router-dom"
 
 import About from './components/About'
@@ -16,10 +13,12 @@ import CreateNew from './components/CreateNew'
 import Footer from './components/Footer'
 import Anecdote from './components/Anecdote'
 import Menu from './components/Menu'
+import Notification from './components/Notification'
 
 
 
 const App = () => {
+  const [notification, setNotification] = useState('')
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
@@ -37,11 +36,12 @@ const App = () => {
     }
   ])
 
-  const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`a new anecdote ${anecdote.content} created!`)
+    setTimeout(() => setNotification(''),10000)
   }
 
   const anecdoteById = (id) => anecdotes.find(a => a.id === id)
@@ -55,26 +55,32 @@ const App = () => {
     }
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
-  }
-/*
+
+}
+
+
+  //const {id} = useParams()
+  //console.log( "match: /anecdotes/:id ", id)
   const match = useRouteMatch('/anecdotes/:id')
-  const matchID = anecdotes.map(anecdote => anecdote.id)
-  const anecdote = match ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id)): null
-  console.log( "match: /anecdotes/:id", match)
-  console.log( "anacdote: /anecdotes/:id", matchID)
-  */
+
+  console.log( "match: /anecdotes/:id ", match)
+  const anecdote = match ? anecdotes.find(anecdote => anecdote.id === match.params.id): null
+  console.log( "match: /anecdotes/:id ", match)
+  //console.log( "match.params: ", match.params)
+  
+
 
   return (
     <div>
-      
-      <Router>
+
         <h1>Software anecdotes</h1>
         <Menu />
+        {notification && <Notification tip={notification}/>}
 
       <Switch>
 
           <Route path="/anecdotes/:id">
-              <Anecdote anecdotes={anecdotes} />
+              <Anecdote anecdote={anecdote} />
           </Route>
           
           <Route path="/create">
@@ -88,9 +94,7 @@ const App = () => {
          </Route>
       </Switch>
       
-      <Footer />
-   </Router>
-      
+      <Footer />     
       
     </div>
   )

@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import {
-  useParams,
-  useRouteMatch
-} from "react-router-dom"
 
 
-const Anecdote = ({ anecdotes }) => {
-  console.log( "anacdote: /anecdotes/:id", anecdotes)
+const Anecdote = ({ anecdote }) => {
+  /*
+  console.log( "anacdote: /anecdotes/:id", anecdote)
   //const [matchID, setMatchID] = useState('')
   //const id = useParams().id
   //const anecdote = anecdotes.find(n => n.id === Number(id))
@@ -18,6 +15,7 @@ const Anecdote = ({ anecdotes }) => {
   console.log( "match: /anecdotes/:id", match.params.id)
   const anecdoteMatch = anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
   console.log( "anacdote:  anecdoteMatch", anecdoteMatch)
+  */
     return (
       <>
         <h2>{anecdote.content}</h2>
