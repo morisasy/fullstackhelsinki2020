@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Notification = ({tip}) => <h5>{tip}</h5>
+const Notification = ({message}) => <h5>{message}</h5>
   
   export default Notification
