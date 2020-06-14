@@ -1,24 +1,37 @@
 import React, { useState } from 'react'
+import  { useField } from '../hooks'
+const CreateNew = ({addNew}) => {
+    
+    const content = useField('text')
+    const author = useField('text')
+    const  info = useField('text')
+   
+  
+  
 
-const CreateNew = (props) => {
-    const [content, setContent] = useState('')
-    const [author, setAuthor] = useState('')
-    const [info, setInfo] = useState('')
-  
-  
-  
     const handleSubmit = (e) => {
+
+    
       e.preventDefault()
-      props.addNew({
-        content,
-        author,
-        info,
+      addNew({
+        content: content.inputProps.value,
+        author: author.inputProps.value,
+        info: info.inputProps.value,
         votes: 0
       })
-      setContent('')
-      setAuthor('')
-      setInfo('')
+     content.reset('')
+     author.reset('')
+     info.reset('')
     }
+
+
+    const handleClear = (e) => {
+      e.preventDefault()
+      content.reset('')
+     author.reset('')
+     info.reset('')
+    }
+  
   
     return (
       <div>
@@ -27,25 +40,26 @@ const CreateNew = (props) => {
           <div>
               content
               <input
+                  {...content.inputProps}
                   name='content'
-                  value={content} 
-                  onChange={(e) => setContent(e.target.value)} />
+                   />
           </div>
           <div>
             author
             <input 
+                 {...author.inputProps}
                 name='author' 
-                value={author} 
-                onChange={(e) => setAuthor(e.target.value)} />
+                 />
           </div>
           <div>
             url for more info
             <input 
+                 {...info.inputProps}
                 name='info' 
-                value={info} 
-                onChange={(e)=> setInfo(e.target.value)} />
+                 />
           </div>
-          <button>create</button>
+          <button type="submit">create</button>
+          <button type="button" onClick={handleClear}>reset </button>
         </form>
       </div>
     )
