@@ -23,6 +23,10 @@ const useCountry = (countryName) => {
   }, [])
 
   // filter country
+  if (countryName === "") {
+    return null
+  }
+
   const country = countries.filter(country =>
     country.name.toLowerCase().includes(countryName.toLowerCase())
   )
@@ -40,7 +44,12 @@ const App = () => {
   const fetch = (e) => {
     e.preventDefault()
     setName(nameInput.value)
+    console.log('name a country', nameInput.value)
+
   }
+
+  console.log(' setName ', name)
+  console.log(' country ', country)
 
   return (
     <div>
