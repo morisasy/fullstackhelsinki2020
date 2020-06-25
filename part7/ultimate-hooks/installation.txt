@@ -1,0 +1,11 @@
+- rm -rf .git
+- npm install
+- npm start
+- npm install redux --save
+- npm install --save react-redux
+- npm install --save redux-devtools-extension
+- npm install axios --save
+- npm install json-server --save-dev
+- npm run server
+- npm install --save react-router-dom
+- npm install --save react-bootstrap
