@@ -1,14 +1,14 @@
 const initialState= {
     type: null,
-    message: null
+    content: null
   
   }
 
-  export const setNotification = ({ message, type }) => {
+  export const setNotification = ({ content, type }) => {
     return dispatch => {
       dispatch({
         type: 'SET_NOTIFICATION',
-        data: { message,
+        data: { content,
                 type 
               },
       })
