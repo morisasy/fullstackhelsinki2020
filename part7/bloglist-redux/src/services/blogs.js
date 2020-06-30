@@ -1,15 +1,8 @@
 import axios from 'axios'
-<<<<<<< HEAD
 const baseUrl = '/api/blogs'
 //const baseUrl = 'http://localhost:3003/api/blogs'
 
 //const baseUrl = 'https://warm-mesa-44071.herokuapp.com/api/blogs'
-=======
-//const baseUrl = '/api/blogs'
-//const baseUrl = 'http://localhost:3003/api/blogs'
-
-const baseUrl = 'https://warm-mesa-44071.herokuapp.com/api/blogs'
->>>>>>> 2ba6b297d112c46ea255b74c031c1225bc29a41d
 
 let token = null
 

@@ -36,10 +36,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
   },
   "proxy": "http://localhost:3003",
-=======
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.0.0",
+    "@testing-library/react": "^9.4.0",
+    "eslint-plugin-jest": "^23.6.0"
   }
->>>>>>> 2ba6b297d112c46ea255b74c031c1225bc29a41d
 }
