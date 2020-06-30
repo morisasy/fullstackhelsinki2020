@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+<<<<<<< HEAD
 **/**/node_modules
 **/**/bloglist
 **/**/.env
@@ -16,6 +17,8 @@
 /part7/bloglist
 
 
+=======
+>>>>>>> 2ba6b297d112c46ea255b74c031c1225bc29a41d
 
 # testing
 /coverage
@@ -29,11 +32,42 @@
 .env.development.local
 .env.test.local
 .env.production.local
+<<<<<<< HEAD
 .env
+=======
+>>>>>>> 2ba6b297d112c46ea255b74c031c1225bc29a41d
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 reff.txt
 
+=======
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+**/**/node_modules
+**/**/.env
+**/.env
+*.env
+/part3/.env
+
+/**/**/node_modules
+/**/node_modules
+
+
+
+# testing
+/coverage
+
+# production
+/build
+**/build
+/**/**/build
+>>>>>>> 2ba6b297d112c46ea255b74c031c1225bc29a41d
 
