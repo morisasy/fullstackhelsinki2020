@@ -1,50 +1,29 @@
 const initialState= {
-    isDisplay: false,
-    content: ''
+    type: null,
+    message: null
+  
+  }
+
+  export const setNotification = ({ message, type }) => {
+    return dispatch => {
+      dispatch({
+        type: 'SET_NOTIFICATION',
+        data: { message,
+                type 
+              },
+      })
+    }
+  }
+  
+  const notificationReducer = (state = initialState, action) => {
+    switch (action.type) {
+    case 'SET_NOTIFICATION':
+      return state.data
+    default:
+      return state
+    }
   
   }
   
-  export const displayNotification = (content) =>({
-      type: 'SET_NOTIFICATION',
-      data: {
-        isDisplay: true,
-        content  
-      }
-  })
+  export default notificationReducer
   
-  
-  export const clearNotification = () =>({
-    type: 'SET_NOTIFICATION',
-      data: {
-        isDisplay: false,
-        content :'' 
-      }
-  })
-  
-  
-    
-  export const setNotification = (content, duration) => {
-    console.log('setNotification: content: ', content)
-      return dispatch =>{
-        dispatch(displayNotification(content))
-  
-      setTimeout(() => {
-        dispatch(clearNotification())
-      }, duration * 1000)
-         
-     }
-    }
-  
-    const notificationReducer = (state =initialState, action) => { 
-      console.log('notificationReducer: state, action: ', state, action)
-      switch (action.type) {
-          case 'SET_NOTIFICATION':
-            return action.data
-          default:
-            return state
-        }
-      }
-    
-  
-    
-    export default notificationReducer
