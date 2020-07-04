@@ -20,5 +20,8 @@
 - https://fullstackopen.com/en/part3/validation_and_es_lint
 - npm run lint
 - npm install jsonwebtoken --save
+- https://fullstackopen.com/en/part5/end_to_end_testing
+- npm run lint
+- npm install jsonwebtoken --save
 
 

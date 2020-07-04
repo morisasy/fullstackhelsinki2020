@@ -6,10 +6,18 @@
 - npm install redux --save
 - npm install --save react-redux
 - npm install --save redux-devtools-extension
+- npm install --save redux-thunk
 - npm install --save redux react-redux redux-devtools-extension
 - npm install axios --save
 - npm install json-server --save-dev
 - npm run server
 - npm install --save react-router-dom
 - npm install --save styled-components
+- npm install --save prop-types
 - npm install --save redux react-redux redux-devtools-extension axios react-router-dom styled-components
+- npm add --save-dev eslint-plugin-jest
+- npm install --save-dev cypress
+- npm run cypress:open
+- npm install eslint-plugin-cypress --save-dev
+
+
