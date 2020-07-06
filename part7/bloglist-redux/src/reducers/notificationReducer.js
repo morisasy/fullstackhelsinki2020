@@ -8,9 +8,9 @@ const initialState= {
     return dispatch => {
       dispatch({
         type: 'SET_NOTIFICATION',
-        data: { content,
-                type 
-              },
+        data: { type,
+          content
+              }
       })
     }
   }

@@ -27,6 +27,7 @@ export const createBlog = ({ blog, user }) => {
   return async dispatch => {
 
     let newBlog = await blogService.create(blog)
+    // Adding user to a newBlog
     newBlog.user = user
     dispatch({
       type: 'NEW_BLOG',

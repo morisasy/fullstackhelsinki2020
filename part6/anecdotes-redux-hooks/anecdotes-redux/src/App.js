@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import Notification from './components/Notification'
@@ -8,7 +10,7 @@ import {initializeAnecdotes} from './reducers/anecdoteReducer'
 
 
 const App = () => {
-
+  //getting anecdotes
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initializeAnecdotes()) 
