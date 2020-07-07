@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Togglable from './components/Togglable'
 import Navigation from "./components/Navigation"
-import Notification from './components/ErrorNotification'
+import Notification from './components/Notification'
 import BlogList from "./components/BlogList"
 
 import blogService from './services/blogs'
@@ -17,7 +17,6 @@ import { useField } from "./hooks"
 import { setNotification } from "./reducers/notificationReducer"
 import { setUser, setToken } from "./reducers/loginReducer"
 import { initializeUsers } from "./reducers/userReducer"
-import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs, 
         update, 
         createBlog,
@@ -28,11 +27,24 @@ function App() {
   const dispatch = useDispatch()
   const blogs = useSelector( state => state.blogs)
   const users = useSelector( state => state.users)
-  const user = useSelector( state => state.user)
+  const user = useSelector( ({user}) => user? user : null)
+  const notification = useSelector(({notification}) => notification? notification : null)
+  //console.log('users: ', users)
+  console.log('user: ', user)
+  //console.log('notification: ', notification)
+  /*
+  const notes = useSelector(({filter, notes}) => {
+    if ( filter === 'ALL' ) {
+      return notes
+    }
+    return filter  === 'IMPORTANT' 
+      ? notes.filter(note => note.important)
+      : notes.filter(note => !note.important)
+  })
+*/
 
 
-
-  const getUsers = initializeUsers
+  //const getUsers = initializeUsers
   const getBlogs = initializeBlogs
 
 
@@ -48,15 +60,21 @@ function App() {
 
 
   // getting blogList / initializeblog
+  
   useEffect(() => {
     dispatch(getBlogs()) 
   },[getBlogs]) 
+  
 
-
+/*
   //getting users / initialize users
   useEffect(() => {
     dispatch(getUsers())
   }, [getUsers])
+
+  */
+
+
 
 // get user information from localStorage
   useEffect(() => {
@@ -69,7 +87,7 @@ function App() {
   }, [])
 
     // find a user
-    const findUser = id => users.find(user => user.id === id)
+   // const findUser = id => users.find(user => user.id === id)
     // find a blog
     const findBlog = id => blogs.find(blog => blog.id === id)
 
@@ -79,7 +97,7 @@ function App() {
 
 
   //setNotification function
-  const setMessage = (message, type = "success") => {
+  const setMessage = (message, type) => {
     dispatch(setNotification({ message, type }))
     setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
   }
@@ -102,6 +120,7 @@ function App() {
       dispatch(setUser(user))
       username.reset('')
       password.reset('')
+     setMessage(` You have login `, 'success')
       
     } catch (exception) {
       setMessage(` Wrong username or password`, 'error')
@@ -130,7 +149,7 @@ const handleAddBlog = async (event) => {
   
       dispatch(createBlog(newBlog, user))
       //setBlogs([...blogs, blogCreated])
-      dispatch(setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`))
+      dispatch(setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`, 'success'))
       
       title.reset('')
       author.reset('')
@@ -141,11 +160,12 @@ const handleAddBlog = async (event) => {
      dispatch(setMessage(`Something went wrong  ${error}`, "error"))
   
   }
+}
 // handle logout 
 //logout functionality
 const handleLogout = (event) => {
   window.localStorage.clear()
-  setUser(null)
+  dispatch(setUser(null))
   blogService.setToken(null)
  
 }
@@ -164,10 +184,10 @@ const handleLikeUpdate = blogId =>  async event => {
                       }
     console.log( "updated blog", blogToUpdate)
      dispatch(update(blogToUpdate))
-    console.log( "updated blog", blogUpdated)
+ 
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
     setMessage(
-       `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
+       `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`, 'success'
        )
   } catch (error) {
     setMessage(`Something went wrong  ${error}`, 'error')
@@ -199,14 +219,14 @@ const handleDelete = blogId =>  async event => {
  
      // const deletedBlog = await  blogService.remove(blogId)
      dispatch(remove(blogToDelete))
-      console.log( "updated blog", deletedBlog)
+     /// console.log( "updated blog", deletedBlog)
      // setBlogs(newBlogList)
       dispatch(setMessage(
-         `Blog post ${blogToDelete.title} deleted`
+         `Blog post ${blogToDelete.title} deleted`, 'success'
          ))
     
     } catch (error) {
-      setMessage(`Something went wrong  ${error}`)
+      setMessage(`Something went wrong  ${error}`, 'error')
       
     }
   }
@@ -231,7 +251,7 @@ const handleDelete = blogId =>  async event => {
       <div className = "wrapper-box" >
                           <h2>Blogs</h2>
                           
-                          <Notification message={setMessage}/>
+                          {notification && <Notification message={notification}/>}
                           <p>{user.name} logged in
                             <Button onClick={handleLogout} text = "Logout"/>
                           </p>
@@ -259,8 +279,8 @@ const handleDelete = blogId =>  async event => {
 
   return (
     <div className = "wrapper">
-        <Notification message={setMessage}/>
-        {user? display(): loginForm()}
+        
+        {user.length ===0 ? loginForm(): display()}
                
         <Footer />
    </div>
