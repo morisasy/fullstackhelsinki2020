@@ -19,7 +19,7 @@ import { setUser, setToken } from "./reducers/loginReducer"
 import { initializeUsers } from "./reducers/userReducer"
 import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs, 
-        like, 
+        update, 
         createBlog,
         remove } from './reducers/blogReducer'
 
@@ -73,6 +73,10 @@ function App() {
     // find a blog
     const findBlog = id => blogs.find(blog => blog.id === id)
 
+    // find new list 
+    // find all the blog except blog list with a particular id 
+    const findBlogList = id => blogs.filter(blog => blog.id !== id)
+
 
   //setNotification function
   const setMessage = (message, type = "success") => {
@@ -124,7 +128,7 @@ const handleAddBlog = async (event) => {
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
   
-      dispatch(createBlog(newBlog))
+      dispatch(createBlog(newBlog, user))
       //setBlogs([...blogs, blogCreated])
       dispatch(setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`))
       
@@ -164,17 +168,9 @@ const handleLikeUpdate = blogId =>  async event => {
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
     setMessage(
        `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
-       );
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 5000)
+       )
   } catch (error) {
-    setErrorMessage(`Something went wrong  ${error}`)
-    
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
-    
+    setMessage(`Something went wrong  ${error}`, 'error')
     
   }
 }
@@ -182,7 +178,7 @@ const handleLikeUpdate = blogId =>  async event => {
 const handleDelete = blogId =>  async event => {
   event.preventDefault();
    //use find method to get a current clicked blog
-  let blogToDelete =  await blogs.find(blog => blog.id === blogId) 
+  let blogToDelete =  await  findBlog(blogId) 
   console.log( "found blog:", blogToDelete )
   console.log( "found blog id: ", blogToDelete.id )
   console.log( "found blog blogId: ", blogId)
@@ -190,7 +186,9 @@ const handleDelete = blogId =>  async event => {
 
   // Get a new blog list
   // exclude a blog to be deleted
-  const newBlogList =  await blogs.filter(blog => blog.id !== blogId)
+  //const newBlogList =  await blogs.filter(blog => blog.id !== blogId)
+  const newBlogList =  await  findBlogList(blogId)
+ 
   console.log( "new blog list: ", newBlogList)
 
   let okCancel = window.confirm(
@@ -199,22 +197,16 @@ const handleDelete = blogId =>  async event => {
   if (okCancel) {
     try {
  
-      const deletedBlog = await  blogService.remove(blogId)
+     // const deletedBlog = await  blogService.remove(blogId)
+     dispatch(remove(blogToDelete))
       console.log( "updated blog", deletedBlog)
-      setBlogs(newBlogList)
-      setSuccessMessage(
+     // setBlogs(newBlogList)
+      dispatch(setMessage(
          `Blog post ${blogToDelete.title} deleted`
-         )
-      setTimeout(() => {
-        setSuccessMessage(null)
-      }, 5000)
+         ))
+    
     } catch (error) {
-      setErrorMessage(`Something went wrong  ${error}`)
-      
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-      
+      setMessage(`Something went wrong  ${error}`)
       
     }
   }
