@@ -9,14 +9,14 @@ const LoginForm = ({ handleLogin, username, password}) => {
     <div clsssName ="form-login">
         <h2>Log in to application</h2> 
         <form onSubmit={handleLogin}>
-                <div classname ="form-group-control">
+                <div className ="form-group-control">
                     username: 
                         <input
                          {...username.inputProps}
                          name = "name"
                         />
                 </div>
-                <div classname ="form-group-control">
+                <div className ="form-group-control">
                     password: 
                         <input
                          {...password.inputProps}

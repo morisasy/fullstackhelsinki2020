@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
+import {
+  Switch,
+  Route,
+  useRouteMatch,
+} from "react-router-dom"
 import './App.css'
 import Button from './components/Button'
 import Footer from './components/Footer'
@@ -27,21 +32,14 @@ function App() {
   const dispatch = useDispatch()
   const blogs = useSelector( state => state.blogs)
   const users = useSelector( state => state.users)
-  const user = useSelector( ({user}) => user? user : null)
+  //const user = useSelector( ({user}) => user? user : null)
+  //const user = useSelector( ({user}) => user)
   const notification = useSelector(({notification}) => notification? notification : null)
+  const [login, setLogin] =  useState('')
   //console.log('users: ', users)
-  console.log('user: ', user)
+ // console.log('useSelector: user: ', user)
   //console.log('notification: ', notification)
-  /*
-  const notes = useSelector(({filter, notes}) => {
-    if ( filter === 'ALL' ) {
-      return notes
-    }
-    return filter  === 'IMPORTANT' 
-      ? notes.filter(note => note.important)
-      : notes.filter(note => !note.important)
-  })
-*/
+
 
 
   //const getUsers = initializeUsers
@@ -79,12 +77,16 @@ function App() {
 // get user information from localStorage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogListappUser')
+    console.log("Get user information from localStorage")
     if (loggedUserJSON) {
+      // get user information from localStorage when user exist
       const user = JSON.parse(loggedUserJSON)
+      console.log("Get user information from localStorage", user)
       dispatch(setUser(user))
       dispatch(setToken(user.token))
+     // setLogin(user)
     }
-  }, [])
+  }, [login])
 
     // find a user
    // const findUser = id => users.find(user => user.id === id)
@@ -105,6 +107,7 @@ function App() {
 // handle login
   const handleLogin = async (event) => {
     event.preventDefault()
+    console.log("Handle login")
     try {
       const user = await loginService.login({
         username: username.inputProps.value,
@@ -118,9 +121,14 @@ function App() {
 
       dispatch(setToken(user.token))
       dispatch(setUser(user))
+      setLogin(user)
       username.reset('')
       password.reset('')
-     setMessage(` You have login `, 'success')
+      console.log("handle loging: ", user)
+      console.log("HANDLE LOGIN TOKEN", user.token)
+     //setMessage(` You have login `, 'success')
+     dispatch(setNotification(` You have login `, 'success'))
+     setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
       
     } catch (exception) {
       setMessage(` Wrong username or password`, 'error')
@@ -146,10 +154,11 @@ const handleAddBlog = async (event) => {
         url: url.inputProps.value,
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
+      let user = login
   
       dispatch(createBlog(newBlog, user))
       //setBlogs([...blogs, blogCreated])
-      dispatch(setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`, 'success'))
+      setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`, 'success')
       
       title.reset('')
       author.reset('')
@@ -157,7 +166,7 @@ const handleAddBlog = async (event) => {
       // Notification displays only 5s
   
     } catch (error) {
-     dispatch(setMessage(`Something went wrong  ${error}`, "error"))
+     setMessage(`Something went wrong  ${error}`, "error")
   
   }
 }
@@ -167,6 +176,7 @@ const handleLogout = (event) => {
   window.localStorage.clear()
   dispatch(setUser(null))
   blogService.setToken(null)
+  setLogin('')
  
 }
 const handleLikeUpdate = blogId =>  async event => {
@@ -175,6 +185,7 @@ const handleLikeUpdate = blogId =>  async event => {
 
     //use find method to get a current clicked blog
     //
+    let user = login
     let foundBlog =  await findBlog(blogId) 
     console.log( "found blog", foundBlog)
     const newLike = foundBlog.likes + 1
@@ -246,13 +257,13 @@ const handleDelete = blogId =>  async event => {
   const display = () =>{
     if (blogs.length){
 
-   
+ //  {notification && <Notification message={notification}/>}  
     return(
       <div className = "wrapper-box" >
                           <h2>Blogs</h2>
                           
-                          {notification && <Notification message={notification}/>}
-                          <p>{user.name} logged in
+                         
+                          <p>{login.username} logged in
                             <Button onClick={handleLogout} text = "Logout"/>
                           </p>
                           <Togglable buttonLabel="create" ref ={addBlogFormRef} >
@@ -280,7 +291,7 @@ const handleDelete = blogId =>  async event => {
   return (
     <div className = "wrapper">
         
-        {user.length ===0 ? loginForm(): display()}
+        {login.length ===0 ? loginForm(): display()}
                
         <Footer />
    </div>
