@@ -35,14 +35,14 @@ function App() {
   //const user = useSelector( ({user}) => user? user : null)
   //const user = useSelector( ({user}) => user)
   const notification = useSelector(({notification}) => notification? notification : null)
-  const [login, setLogin] =  useState('')
+  const [loginUser, setLoginUser] =  useState('')
   //console.log('users: ', users)
  // console.log('useSelector: user: ', user)
   //console.log('notification: ', notification)
 
 
 
-  //const getUsers = initializeUsers
+  const getUsers = initializeUsers
   const getBlogs = initializeBlogs
 
 
@@ -64,13 +64,12 @@ function App() {
   },[getBlogs]) 
   
 
-/*
+
   //getting users / initialize users
   useEffect(() => {
     dispatch(getUsers())
   }, [getUsers])
 
-  */
 
 
 
@@ -86,12 +85,15 @@ function App() {
       dispatch(setToken(user.token))
      // setLogin(user)
     }
-  }, [login])
+  }, [loginUser])
 
     // find a user
-   // const findUser = id => users.find(user => user.id === id)
+    const findUser = id => users.find(user => user.id === id)
     // find a blog
     const findBlog = id => blogs.find(blog => blog.id === id)
+
+    // find a blog author
+    const findBlogUser = username => users.find(user => user.username = username)
 
     // find new list 
     // find all the blog except blog list with a particular id 
@@ -118,13 +120,16 @@ function App() {
       window.localStorage.setItem(
         'loggedBlogListappUser', JSON.stringify(user)
       ) 
-
+      const foundUser = findBlogUser(user.username)
+      console.log("handle loging: found user", foundUser)
+      // add user id
+      user.id = foundUser.id
       dispatch(setToken(user.token))
       dispatch(setUser(user))
-      setLogin(user)
+      setLoginUser(user)
       username.reset('')
       password.reset('')
-      console.log("handle loging: ", user)
+      console.log("handle loging: login.username ", user)
       console.log("HANDLE LOGIN TOKEN", user.token)
      //setMessage(` You have login `, 'success')
      dispatch(setNotification(` You have login `, 'success'))
@@ -152,11 +157,12 @@ const handleAddBlog = async (event) => {
         title: title.inputProps.value,
         author: author.inputProps.value,
         url: url.inputProps.value,
+        id: loginUser.id
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
-      let user = login
+      
   
-      dispatch(createBlog(newBlog, user))
+      dispatch(createBlog(newBlog))
       //setBlogs([...blogs, blogCreated])
       setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`, 'success')
       
@@ -174,9 +180,9 @@ const handleAddBlog = async (event) => {
 //logout functionality
 const handleLogout = (event) => {
   window.localStorage.clear()
-  dispatch(setUser(null))
+ // dispatch(setUser(null))
   blogService.setToken(null)
-  setLogin('')
+  setLoginUser('')
  
 }
 const handleLikeUpdate = blogId =>  async event => {
@@ -185,13 +191,13 @@ const handleLikeUpdate = blogId =>  async event => {
 
     //use find method to get a current clicked blog
     //
-    let user = login
+    
     let foundBlog =  await findBlog(blogId) 
     console.log( "found blog", foundBlog)
     const newLike = foundBlog.likes + 1
     let blogToUpdate = { ...foundBlog,
                         likes: newLike,
-                        user: user.id
+                        user: loginUser.id
                       }
     console.log( "updated blog", blogToUpdate)
      dispatch(update(blogToUpdate))
@@ -263,7 +269,7 @@ const handleDelete = blogId =>  async event => {
                           <h2>Blogs</h2>
                           
                          
-                          <p>{login.username} logged in
+                          <p>{loginUser.username} logged in
                             <Button onClick={handleLogout} text = "Logout"/>
                           </p>
                           <Togglable buttonLabel="create" ref ={addBlogFormRef} >
@@ -291,7 +297,7 @@ const handleDelete = blogId =>  async event => {
   return (
     <div className = "wrapper">
         
-        {login.length ===0 ? loginForm(): display()}
+        {loginUser.length ===0 ? loginForm(): display()}
                
         <Footer />
    </div>
