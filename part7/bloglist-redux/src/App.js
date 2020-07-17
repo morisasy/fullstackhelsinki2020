@@ -19,7 +19,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 
 import { useField } from "./hooks"
-import { setNotification, clearNotification, displayNotification } from "./reducers/notificationReducer"
+import { setNotification, clearNotification } from "./reducers/notificationReducer"
 import { setUser, setToken } from "./reducers/loginReducer"
 import { initializeUsers } from "./reducers/userReducer"
 import { initializeBlogs, 
@@ -34,13 +34,12 @@ function App() {
   const users = useSelector( state => state.users)
   //const user = useSelector( ({user}) => user? user : null)
   //const user = useSelector( ({user}) => user)
-  //const notification = useSelector(({notification}) => notification? notification : null)
+
   // current login user 
   const [loginUser, setLoginUser] =  useState('')
   //console.log('users: ', users)
  // console.log('useSelector: user: ', user)
-  //console.log('notification: ', notification)
-
+ 
 
 
   const getUsers = initializeUsers
@@ -102,9 +101,10 @@ function App() {
 
 
   //setNotification function
-  const setMessage = (message, type = "success") => {
-    dispatch(setNotification({ message, type }))
-    dispatch(clearNotification())
+  const setMessage = (content, type = "success") => {
+    dispatch(setNotification({ content, type }))
+    setTimeout(() => dispatch(clearNotification()), 5000)
+    
   }
 
 // handle login
@@ -132,9 +132,9 @@ function App() {
       password.reset('')
       console.log("handle loging: login.username ", user)
       console.log("HANDLE LOGIN TOKEN", user.token)
-     setMessage(` You have login `, 'success')
+     setMessage(` You have login `)
     // dispatch(setNotification(` You have login `, 'success'))
-     setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
+     ///setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
       
     } catch (exception) {
       setMessage(` Wrong username or password`, 'error')
@@ -252,6 +252,7 @@ const handleDelete = blogId =>  async event => {
   const loginForm = () =>{
     return (
       <div className = "wrapper-box" >
+                      <Notification />
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
@@ -269,7 +270,7 @@ const handleDelete = blogId =>  async event => {
       <div className = "wrapper-box" >
                           <h2>Blogs</h2>
                           
-                         
+                          <Notification />
                           <p>{loginUser.username} logged in
                             <Button onClick={handleLogout} text = "Logout"/>
                           </p>

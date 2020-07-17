@@ -1,39 +1,33 @@
 const initialState= {
+  content: '',
+    type: ''
+    }
 
-    type: '',
-    isDisplay: false,
-    content: ''
-  
-  }
 
   
   
-  export const displayNotification = (content, styleType) =>({
-      type: 'SET_NOTIFICATION',
-      data: {
-        type: styleType,
-        isDisplay: true,
-        content  
-      }
-  })
-  
-  
-  export const clearNotification = () =>({
-    type: 'SET_NOTIFICATION',
-      data: {
-        type: '',
-        isDisplay: false,
-        content :'' 
-      }
-  })
 
-  export const setNotification = ({ content, sytleType }) => {
+
+  export const clearNotification = () =>{
     return dispatch => {
       dispatch({
         type: 'SET_NOTIFICATION',
-        data: { type: sytleType,
-          content
-              }
+        data: {
+          type: '',
+          content:'' 
+        }
+      })
+    }
+  }
+
+  export const setNotification = ({ content, type}) => {
+    return dispatch => {
+      dispatch({
+        type: 'SET_NOTIFICATION',
+        data: {
+          content,
+          type
+        }
       })
     }
   }
@@ -42,7 +36,7 @@ const initialState= {
     switch (action.type) {
     case 'SET_NOTIFICATION':
       state = action.data
-      return state.content ? state : null
+      return state
     default:
       return state
     }
