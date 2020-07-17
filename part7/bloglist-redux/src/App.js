@@ -19,7 +19,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 
 import { useField } from "./hooks"
-import { setNotification } from "./reducers/notificationReducer"
+import { setNotification, clearNotification, displayNotification } from "./reducers/notificationReducer"
 import { setUser, setToken } from "./reducers/loginReducer"
 import { initializeUsers } from "./reducers/userReducer"
 import { initializeBlogs, 
@@ -34,7 +34,8 @@ function App() {
   const users = useSelector( state => state.users)
   //const user = useSelector( ({user}) => user? user : null)
   //const user = useSelector( ({user}) => user)
-  const notification = useSelector(({notification}) => notification? notification : null)
+  //const notification = useSelector(({notification}) => notification? notification : null)
+  // current login user 
   const [loginUser, setLoginUser] =  useState('')
   //console.log('users: ', users)
  // console.log('useSelector: user: ', user)
@@ -101,9 +102,9 @@ function App() {
 
 
   //setNotification function
-  const setMessage = (message, type) => {
+  const setMessage = (message, type = "success") => {
     dispatch(setNotification({ message, type }))
-    setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
+    dispatch(clearNotification())
   }
 
 // handle login
@@ -131,8 +132,8 @@ function App() {
       password.reset('')
       console.log("handle loging: login.username ", user)
       console.log("HANDLE LOGIN TOKEN", user.token)
-     //setMessage(` You have login `, 'success')
-     dispatch(setNotification(` You have login `, 'success'))
+     setMessage(` You have login `, 'success')
+    // dispatch(setNotification(` You have login `, 'success'))
      setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
       
     } catch (exception) {
@@ -157,14 +158,14 @@ const handleAddBlog = async (event) => {
         title: title.inputProps.value,
         author: author.inputProps.value,
         url: url.inputProps.value,
-        id: loginUser.id
+        user: loginUser.id
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
       
   
       dispatch(createBlog(newBlog))
       //setBlogs([...blogs, blogCreated])
-      setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`, 'success')
+      setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`)
       
       title.reset('')
       author.reset('')
@@ -204,7 +205,7 @@ const handleLikeUpdate = blogId =>  async event => {
  
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
     setMessage(
-       `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`, 'success'
+       `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
        )
   } catch (error) {
     setMessage(`Something went wrong  ${error}`, 'error')

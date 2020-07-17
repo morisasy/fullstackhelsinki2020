@@ -5,7 +5,7 @@ import Button from './Button'
 
 const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
   //const {blog, handleLikeChange, handleDelete} = props
-  console.log("blog visibility: ", blog)
+ // console.log("blog visibility: ", blog)
   
   
     const [visible, setVisible] = useState(false)

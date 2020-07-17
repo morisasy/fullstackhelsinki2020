@@ -23,7 +23,8 @@ const blogReducer = (state = [], action) => {
   }
 
 
-export const createBlog = ({blog}) => {
+export const createBlog = (blog) => {
+  console.log("create new blog reduce:", blog)
   return async dispatch => {
 
     let newBlog = await blogService.create(blog)
@@ -36,6 +37,7 @@ export const createBlog = ({blog}) => {
 }
 
 export const update = blog => {
+  console.log("update blog reducer:", blog)
   return async dispatch => {
     const updatedBlog = await blogService.update(blog.id, blog)
     dispatch({
