@@ -3,7 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useSelector} from 'react-redux'
 
-const UserList = () => {
+const Users = () => {
     const users = useSelector(state => state.users)
     console.log("Userlist: ", users)
     const showUsers = () => {
@@ -36,4 +36,4 @@ const UserList = () => {
     )
   }
 
-  export default UserList
+  export default Users

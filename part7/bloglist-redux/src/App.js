@@ -11,9 +11,11 @@ import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Togglable from './components/Togglable'
-import Navigation from "./components/Navigation"
+import NavigationH from "./components/Navigation"
+import Header from "./components/Header"
 import Notification from './components/Notification'
 import BlogList from "./components/BlogList"
+import Users from "./components/Users"
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -26,6 +28,7 @@ import { initializeBlogs,
         update, 
         createBlog,
         remove } from './reducers/blogReducer'
+import BlogInfo from "./components/BlogInfo"
 
 
 function App() {
@@ -44,6 +47,7 @@ function App() {
 
   const getUsers = initializeUsers
   const getBlogs = initializeBlogs
+  
 
 
   const username = useField("username")
@@ -86,6 +90,7 @@ function App() {
      // setLogin(user)
     }
   }, [loginUser])
+ 
 
     // find a user
     const findUser = id => users.find(user => user.id === id)
@@ -98,6 +103,16 @@ function App() {
     // find new list 
     // find all the blog except blog list with a particular id 
     const findBlogList = id => blogs.filter(blog => blog.id !== id)
+
+    //parameterize route visited
+    // get the id of the blog visited 
+    const matchBlogId = useRouteMatch('/blogs/:id')
+    const blogFound = matchBlogId ? findBlog(matchBlogId): null
+
+    // get the id of the individual user  
+    const matchUsersId = useRouteMatch('/users/:id')
+    const usersFound = matchUsersId ? findUser(matchUsersId): null
+
 
 
   //setNotification function
@@ -264,32 +279,38 @@ const handleDelete = blogId =>  async event => {
 
   const display = () =>{
     if (blogs.length){
-
- //  {notification && <Notification message={notification}/>}  
     return(
       <div className = "wrapper-box" >
-                          <h2>Blogs</h2>
+                          <Header user ={loginUser.username} />
+                          <h2>Blogs App</h2>
                           
                           <Notification />
-                          <p>{loginUser.username} logged in
-                            <Button onClick={handleLogout} text = "Logout"/>
-                          </p>
-                          <Togglable buttonLabel="create" ref ={addBlogFormRef} >
-                              <AddBlogForm 
-                                handleAddBlog={handleAddBlog}
-                                title={title}
-                                author={author}
-                                url={url}              
-                              />
-                          </Togglable>
-
-                          <div className = "wrapper-box-container" >
-                            <BlogList
-                                  blogs = {blogs}
-                                  handleLike = {handleLikeUpdate}
-                                  handleDelete = {handleDelete}
-                            />
-                          </div>
+                          <Switch> 
+                              <Route path="/users">
+                                  <Users />
+                              </Route>
+                               <Route path="/users/:id">
+                                   <User />
+                              </Route>  
+                              <Route path="/blogs/:id">
+                                   <BlogInfo blog = {blog} />
+                              </Route>                           
+                              <Route path="/blogs">
+                                  <Togglable buttonLabel="create" ref ={addBlogFormRef} >
+                                      <AddBlogForm 
+                                        handleAddBlog={handleAddBlog}
+                                        title={title}
+                                        author={author}
+                                        url={url}              
+                                      />
+                                  </Togglable>
+                                  <BlogList
+                                    blogs = {blogs}
+                                    handleLike = {handleLikeUpdate}
+                                    handleDelete = {handleDelete}
+                                  />
+                              </Route>
+                          </Switch>
                     </div>
     )
   }
@@ -298,10 +319,13 @@ const handleDelete = blogId =>  async event => {
 
   return (
     <div className = "wrapper">
-        
-        {loginUser.length ===0 ? loginForm(): display()}
+      <Router>
+                 {loginUser.length ===0 ? loginForm(): display()}
                
-        <Footer />
+               <Footer />
+      </Router>
+        
+       
    </div>
   )
 }

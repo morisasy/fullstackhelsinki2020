@@ -1,0 +1,13 @@
+installation
+1. npm init
+2. npm install --save-dev jest
+3. npm run test
+
+test folder
+1. app.js
+2. app.test.js
+
+package.json
+1. "devDependencies": {'jest': '26.1.0'},
+2. 'script': {'test': 'jest'}
+

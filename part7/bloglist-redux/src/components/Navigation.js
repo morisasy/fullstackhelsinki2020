@@ -18,8 +18,7 @@ const  Navigation= ({user}) => {
             ? <em>{user} logged in</em>
             : <Link style={padding} to="/login">login</Link>
           }
-            <Link style={padding} to="/logout">logout</Link>
-        
+            <Link style={padding} to="/logout">logout</Link>     
        </header>
     )
   }

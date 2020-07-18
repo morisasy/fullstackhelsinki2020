@@ -25,9 +25,13 @@ export const setToken = token => {
   }
 }
 
+
 export const logout = () => {
-  return {
-    type:  "LOGOUT"
+  return async dispatch => {
+    window.localStorage.clear()
+    dispatch({
+      type:  "LOGOUT"
+    })
   }
 }
 
