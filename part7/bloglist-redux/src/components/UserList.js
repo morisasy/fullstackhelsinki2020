@@ -1,17 +1,37 @@
 
 import React from "react"
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 
 const UserList = () => {
     const users = useSelector(state => state.users)
-    if (!user) {
-      return null
+    console.log("Userlist: ", users)
+    const showUsers = () => {
+      return users.map(user => (
+        <tr key={user.id}>
+          <td>
+             <Link to={`users/${user.id}`}>{user.name}</Link>
+          </td>
+          <td>{user.blogs.length}</td>
+        </tr>
+      ))
     }
-  
     return (
       <div>
-        // ...
+          <h4>
+            Registered Users
+          </h4>        
+          <table>
+                <thead>
+                  <tr>
+                      <th> User</th>
+                      <th> Blogs Created </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {showUsers()}
+                </tbody>
+          </table>  
       </div>
     )
   }

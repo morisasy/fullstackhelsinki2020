@@ -11,7 +11,7 @@ const  Navigation= ({user}) => {
       paddingRight: 5
     }
     return (
-        <div>
+        <header>
             <Link style={padding} to="/">blogs</Link>
             <Link style={padding} to="/">users</Link>
             {user
@@ -20,7 +20,7 @@ const  Navigation= ({user}) => {
           }
             <Link style={padding} to="/logout">logout</Link>
         
-       </div>
+       </header>
     )
   }
   

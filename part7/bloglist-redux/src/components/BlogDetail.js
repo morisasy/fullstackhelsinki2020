@@ -4,8 +4,6 @@ import Button from './Button'
 
 
 const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
-  //const {blog, handleLikeChange, handleDelete} = props
- // console.log("blog visibility: ", blog)
   
   
     const [visible, setVisible] = useState(false)
@@ -34,7 +32,8 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
                       {blog.likes} likes <Button onClick={handleLike} text = "like"/>
                     </p>
                   <p>
-                    added by <span>{blog.user.name}</span>
+                    added by &nbsp;
+                   <Link to={`/users/${blog.user.id}`}>{blog.user.name}</Link>
                   </p>
                   <Button onClick={handleDelete} text = "remove"/>
           </div>
