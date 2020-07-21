@@ -19,5 +19,7 @@
 - npm install --save-dev cypress
 - npm run cypress:open
 - npm install eslint-plugin-cypress --save-dev
+- npm install --save styled-components
+
 
 

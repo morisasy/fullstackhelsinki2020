@@ -1,4 +1,5 @@
 import React, { useState, useImperativeHandle } from 'react'
+import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import Button from './Button'
 
@@ -33,7 +34,7 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
                     </p>
                   <p>
                     added by &nbsp;
-                   <Link to={`/users/${blog.user.id}`}>{blog.user.name}</Link>
+                   <Link to={`blogs/${blog.user.id}`}>{blog.user.name}</Link>
                   </p>
                   <Button onClick={handleDelete} text = "remove"/>
           </div>

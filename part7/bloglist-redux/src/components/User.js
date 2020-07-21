@@ -1,18 +1,27 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import PropTypes from "prop-types"
-import { useSelector} from 'react-redux'
+import React, { useState } from "react"
 import {
-  useRouteMatch
+  useRouteMatch,
+  Link
 } from "react-router-dom"
+import { useSelector} from 'react-redux'
+import PropTypes from "prop-types"
+
+
 
 const User = () => {
 
   // get the id of the individual user  
-  const id= useRouteMatch('/users/:id')
+  const [userInfo, setUserInfo] = useState('')
+  const match= useRouteMatch('/users/:id')
+  const isUser = (user) => {
+    console.log( "isMatch ", match)
+    return user.id === match.params.id
+
+  }
   //const usersFound = matchUsersId ? findUser(matchUsersId): null
 
-  const user = useSelector(({users}) => users.find(user => user.id === id))
+  const user = useSelector(({users}) => users.find(isUser))
+  console.log( "user ", user)
 
 
     if (!user) {
@@ -28,7 +37,7 @@ const User = () => {
             {user.blogs.map(blog => (
               <li key={blog.id}>
                   <Link to={`/blogs/${blog.id}`}>
-                    <span>{blog.title}</span>
+                    <span>{`${user.username}`}</span>
                   </Link>
               </li>
             ))}

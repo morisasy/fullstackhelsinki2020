@@ -1,22 +1,30 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import {
+  useRouteMatch,
+  Link
+} from "react-router-dom"
+import { useSelector} from 'react-redux'
 import PropTypes from "prop-types"
 
-const BlogInfo = ({ blog }) => {
-  
-  return (
+
+const BlogInfo = ({blogs, handleLike, handleDelete}) => {
+  console.log("blog list component: blogs: ", blogs)
+    return (
       <div>
-          <h2>blog</h2>
-          <Link to={`blogs/${blog.id}`}>
-            {blog.title} ({blog.author})
-          </Link>
-      </div>   
-  )
-}
-
-
-BlogView.propTypes = {
-    blog: PropTypes.object.isRequired,
+        {blogs.sort((a, b) => b.likes - a.likes).map(blog =><Blog 
+                                key={blog.id}  
+                                blog={blog} 
+                                handleLike = {handleLike(blog.id)}
+                                handleDelete = {handleDelete(blog.id)}
+                          />)}
+      </div>
+       )    
+  
+  }
+  
+  BlogList.propTypes = {
+    handleLike: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
   }
 
 export default BlogInfo

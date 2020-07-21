@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import {
+  BrowserRouter as Router,
   Switch,
   Route,
   useRouteMatch,
@@ -11,11 +12,13 @@ import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Togglable from './components/Togglable'
-import NavigationH from "./components/Navigation"
+import Navigation from "./components/Navigation"
 import Header from "./components/Header"
 import Notification from './components/Notification'
 import BlogList from "./components/BlogList"
 import Users from "./components/Users"
+import User from "./components/User"
+import Blogs from "./components/Blogs"
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -79,7 +82,7 @@ function App() {
 
 // get user information from localStorage
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogListappUser')
+    const loggedUserJSON = window.localStorage.getItem("blogAppUser")
     console.log("Get user information from localStorage")
     if (loggedUserJSON) {
       // get user information from localStorage when user exist
@@ -106,12 +109,13 @@ function App() {
 
     //parameterize route visited
     // get the id of the blog visited 
-    const matchBlogId = useRouteMatch('/blogs/:id')
-    const blogFound = matchBlogId ? findBlog(matchBlogId): null
+    // find the current blog
+   // const matchBlogId = useRouteMatch('/blogs/:id')
+    //const blogFound = matchBlogId ? findBlog(matchBlogId): null
 
     // get the id of the individual user  
-    const matchUsersId = useRouteMatch('/users/:id')
-    const usersFound = matchUsersId ? findUser(matchUsersId): null
+    //const matchUsersId = useRouteMatch('/users/:id')
+    //const usersFound = matchUsersId ? findUser(matchUsersId): null
 
 
 
@@ -192,6 +196,7 @@ const handleAddBlog = async (event) => {
   
   }
 }
+/*
 // handle logout 
 //logout functionality
 const handleLogout = (event) => {
@@ -201,6 +206,7 @@ const handleLogout = (event) => {
   setLoginUser('')
  
 }
+*/
 const handleLikeUpdate = blogId =>  async event => {
   event.preventDefault();
   try {
@@ -293,7 +299,7 @@ const handleDelete = blogId =>  async event => {
                                    <User />
                               </Route>  
                               <Route path="/blogs/:id">
-                                   <BlogInfo blog = {blog} />
+                                   <BlogInfo  />
                               </Route>                           
                               <Route path="/blogs">
                                   <Togglable buttonLabel="create" ref ={addBlogFormRef} >
