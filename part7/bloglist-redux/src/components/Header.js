@@ -1,14 +1,16 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from 'react'
+import { Link, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from "../reducers/loginReducer"
 import Button from './Button'
 
 const Header = ({user}) => {
+  const [currentUser, setCurrentUser] = useState(user) 
   const dispatch = useDispatch()
   const login = useSelector( state => state.login)
   console.log('header Login:', login)
+
     const headerStyle = {
       backgroundcolor: 'grey',
       padding: 10,
@@ -23,20 +25,26 @@ const Header = ({user}) => {
     const handleLogout = async(event) => {
       dispatch(logout())
       window.localStorage.removeItem("blogAppUser")
+      setCurrentUser(null)
      
     }
+
+    // {user ? <Users /> : <Redirect to="/login" />}
   
     return (
       <header style={headerStyle}>
          <Link style={padding} to="/blogs">blogs</Link>
           <Link style={padding} to="/users">users</Link>
-          <span>{user} logged in
-                            <Button 
-                               style={padding} 
-                               onClick={handleLogout} 
-                               text = "Logout"
-                               />
-          </span>     
+          {currentUser ?  <span>  
+                      <em> {currentUser} logged in</em>
+                                      <Button 
+                                        style={padding} 
+                                        onClick={handleLogout} 
+                                        text = "Logout"
+                                        />
+                  </span>: <Redirect to="/login" />
+          }
+          
       </header> 
     )
   }

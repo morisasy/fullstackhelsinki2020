@@ -270,10 +270,26 @@ const handleDelete = blogId =>  async event => {
     }
   }
 }
+
+/*
+
+<BlogList
+                                    blogs = {blogs}
+                                    handleLike = {handleLikeUpdate}
+                                    handleDelete = {handleDelete}
+                                  />
+       <Route path="/login"> 
+                                <LoginForm
+                                    handleLogin={handleLogin}
+                                    username={username}
+                                    password={password}
+                               />
+                              </Route>e>
+
+*/
   const loginForm = () =>{
     return (
       <div className = "wrapper-box" >
-                      <Notification />
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
@@ -299,9 +315,12 @@ const handleDelete = blogId =>  async event => {
                                    <User />
                               </Route>  
                               <Route path="/blogs/:id">
-                                   <BlogInfo  />
-                              </Route>                           
-                              <Route path="/blogs">
+                                   <BlogInfo 
+                                        handleLike = {handleLikeUpdate}
+                                    />
+                              </Route>
+                                                         
+                              <Route path="/">
                                   <Togglable buttonLabel="create" ref ={addBlogFormRef} >
                                       <AddBlogForm 
                                         handleAddBlog={handleAddBlog}
@@ -310,11 +329,7 @@ const handleDelete = blogId =>  async event => {
                                         url={url}              
                                       />
                                   </Togglable>
-                                  <BlogList
-                                    blogs = {blogs}
-                                    handleLike = {handleLikeUpdate}
-                                    handleDelete = {handleDelete}
-                                  />
+                                  <Blogs blogs = {blogs} />
                               </Route>
                           </Switch>
                     </div>
@@ -326,8 +341,7 @@ const handleDelete = blogId =>  async event => {
   return (
     <div className = "wrapper">
       <Router>
-                 {loginUser.length ===0 ? loginForm(): display()}
-               
+                 {loginUser.length ===0 ? loginForm(): display()}          
                <Footer />
       </Router>
         

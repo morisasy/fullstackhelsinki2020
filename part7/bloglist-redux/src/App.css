@@ -58,8 +58,12 @@
   }
   ul {
     list-style: none;
+    width: 100%;
+    border-collapse: collapse;
   }
-  
+  ul li {
+    margin: 5px;
+  }
   li {
     color: grey;
     padding-top: 3px;

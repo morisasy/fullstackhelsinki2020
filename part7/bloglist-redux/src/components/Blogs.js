@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import BlogList from './BlogList'
+
 const Blogs = ({blogs}) => {
 console.log("blog list component: blogs: ", blogs)
 const showBlogList = () => {
@@ -12,9 +13,9 @@ const showBlogList = () => {
 
   return (
     <div>
-            <ul>
+            <table>
                     {showBlogList()}
-            </ul>
+            </table>
     </div>
      )    
 

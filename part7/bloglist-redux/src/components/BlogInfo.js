@@ -1,30 +1,55 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   useRouteMatch,
   Link
 } from "react-router-dom"
 import { useSelector} from 'react-redux'
 import PropTypes from "prop-types"
+import Button from './Button'
+import Blog from "./Blog"
 
 
-const BlogInfo = ({blogs, handleLike, handleDelete}) => {
-  console.log("blog list component: blogs: ", blogs)
+const BlogInfo = ({handleLike}) => {
+
+  // get the id of the  blog
+  const [userInfo, setUserInfo] = useState('')
+  const match= useRouteMatch('/blogs/:id')
+  const isBlog = (blog) => {
+    console.log( "isMatch ", match)
+    return blog.id === match.params.id
+
+  }
+  //const usersFound = matchUsersId ? findUser(matchUsersId): null
+
+  const blog = useSelector(state => state.blogs.find(isBlog))
+  console.log( "blog ", blog)
+  console.log("blog list component: blogs: ", blog)
     return (
-      <div>
-        {blogs.sort((a, b) => b.likes - a.likes).map(blog =><Blog 
-                                key={blog.id}  
-                                blog={blog} 
-                                handleLike = {handleLike(blog.id)}
-                                handleDelete = {handleDelete(blog.id)}
-                          />)}
-      </div>
+      <>
+          <div  className="blogInfo" >
+                  <p>
+                    {blog.title} {""} {blog.author}
+                  </p>
+                  
+                  <p>
+                    <a href={blog.url}>{blog.url}</a>
+                  </p>
+                  <p>
+                      {blog.likes} likes <Button onClick={handleLike} text = "like"/>
+                   </p>
+                  <p>
+                    added by &nbsp;
+                  <Link to={`blogs/${blog.user.id}`}>{blog.user.name}</Link>
+                  </p>
+          </div>
+      </>
        )    
   
   }
   
-  BlogList.propTypes = {
-    handleLike: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired
+  BlogInfo.propTypes = {
+    blogs: PropTypes.object.isRequired,
+    handleLike: PropTypes.func.isRequired
   }
 
 export default BlogInfo

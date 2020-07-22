@@ -1,6 +1,7 @@
 
 import React from 'react';
 import PropTypes from "prop-types"
+import Notification from './Notification'
 
 const LoginForm = ({ handleLogin, username, password}) => {
 
@@ -8,6 +9,7 @@ const LoginForm = ({ handleLogin, username, password}) => {
   return ( 
     <div clsssName ="form-login">
         <h2>Log in to application</h2> 
+        <Notification />
         <form onSubmit={handleLogin}>
                 <div className ="form-group-control">
                     username: 
