@@ -6,7 +6,6 @@ import {
 import { useSelector} from 'react-redux'
 import PropTypes from "prop-types"
 import Button from './Button'
-import Blog from "./Blog"
 
 
 const BlogInfo = ({handleLike}) => {
@@ -48,7 +47,6 @@ const BlogInfo = ({handleLike}) => {
   }
   
   BlogInfo.propTypes = {
-    blogs: PropTypes.object.isRequired,
     handleLike: PropTypes.func.isRequired
   }
 

@@ -27,7 +27,7 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
           <div style={showStyle} className="blog-detail" >
                   
                   <p>
-                    <a href={blog.url}>{blog.url}</a>
+                    <Link to= "/" >{blog.url}</Link>
                   </p>
                   <p>
                       {blog.likes} likes <Button onClick={handleLike} text = "like"/>

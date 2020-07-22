@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 const Notification = () => {
   const notification = useSelector(state => state.notification)
   console.log('notification: ', notification)
-  //const {message, type} = notification
 
   if (notification.content) {
     console.log('notification: type, content ', notification)
@@ -18,11 +17,6 @@ const Notification = () => {
       )
     
     }
-
-  //let styleType = null
- // notification.type === "success" ? styleType = "success" : styleType = "error"
-
- // <div className={styleType}>
 
 
   return (

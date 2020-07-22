@@ -1,20 +1,30 @@
 import React from 'react'
 import PropTypes from "prop-types"
-import BlogList from './BlogList'
+import {
+        Link
+      } from "react-router-dom"
 
 const Blogs = ({blogs}) => {
 console.log("blog list component: blogs: ", blogs)
+
 const showBlogList = () => {
     const sortedList = blogs.sort((a, b) => b.likes - a.likes)
-    return sortedList.map(blog => <BlogList  
-                                    blog={blog}
-                                     />)
+    return sortedList.map(blog => <tr  key={blog.id} >
+                                        <td>
+                                        <Link to={`blogs/${blog.id}`}>
+                                        {blog.title} {""} {blog.author}
+                                        </Link>
+                                        </td> 
+                                </tr>  )
   }
 
   return (
     <div>
             <table>
-                    {showBlogList()}
+                    <tbody>
+                                {showBlogList()}
+                    </tbody>
+                    
             </table>
     </div>
      )    
@@ -22,6 +32,6 @@ const showBlogList = () => {
 }
 
 Blogs.propTypes = {
-  blogs: PropTypes.object.isRequired
+  blogs: PropTypes.array.isRequired
 }
 export default Blogs

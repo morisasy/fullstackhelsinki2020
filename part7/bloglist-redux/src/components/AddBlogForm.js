@@ -2,12 +2,16 @@ import React from 'react';
 import PropTypes from "prop-types"
 
 
-const AddBlogFrom = (props) =>{
-  console.log("add form: ", props)
-  const { handleAddBlog,
+const AddBlogFrom = ( { handleAddBlog,
+                        title, 
+                        author,
+                        url}) =>{
+  //console.log("add form: ", props)
+ /* const { handleAddBlog,
           title, 
           author,
           url} = props
+          */
     
 
    return(
@@ -41,9 +45,9 @@ const AddBlogFrom = (props) =>{
 
 AddBlogFrom.propTypes = {
     handleAddBlog: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+    title: PropTypes.object.isRequired,
+    author: PropTypes.object.isRequired,
+    url: PropTypes.object.isRequired
   }
 
 export default AddBlogFrom;

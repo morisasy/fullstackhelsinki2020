@@ -12,10 +12,8 @@ import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
 import Togglable from './components/Togglable'
-import Navigation from "./components/Navigation"
 import Header from "./components/Header"
 import Notification from './components/Notification'
-import BlogList from "./components/BlogList"
 import Users from "./components/Users"
 import User from "./components/User"
 import Blogs from "./components/Blogs"
@@ -27,11 +25,13 @@ import { useField } from "./hooks"
 import { setNotification, clearNotification } from "./reducers/notificationReducer"
 import { setUser, setToken } from "./reducers/loginReducer"
 import { initializeUsers } from "./reducers/userReducer"
+import { logout } from "./reducers/loginReducer"
 import { initializeBlogs, 
         update, 
         createBlog,
         remove } from './reducers/blogReducer'
 import BlogInfo from "./components/BlogInfo"
+
 
 
 function App() {
@@ -90,9 +90,9 @@ function App() {
       console.log("Get user information from localStorage", user)
       dispatch(setUser(user))
       dispatch(setToken(user.token))
-     // setLogin(user)
+      setLoginUser(user)
     }
-  }, [loginUser])
+  }, [])
  
 
     // find a user
@@ -152,8 +152,6 @@ function App() {
       console.log("handle loging: login.username ", user)
       console.log("HANDLE LOGIN TOKEN", user.token)
      setMessage(` You have login `)
-    // dispatch(setNotification(` You have login `, 'success'))
-     ///setTimeout(() => dispatch(setNotification({ message: null, type: null })), 5000)
       
     } catch (exception) {
       setMessage(` Wrong username or password`, 'error')
@@ -196,17 +194,22 @@ const handleAddBlog = async (event) => {
   
   }
 }
-/*
+
 // handle logout 
 //logout functionality
-const handleLogout = (event) => {
+/*
+
+*/
+
+const handleLogout =  async(event) => {
+  event.preventDefault()
   window.localStorage.clear()
- // dispatch(setUser(null))
+  dispatch(logout())
   blogService.setToken(null)
   setLoginUser('')
  
 }
-*/
+
 const handleLikeUpdate = blogId =>  async event => {
   event.preventDefault();
   try {
@@ -271,22 +274,7 @@ const handleDelete = blogId =>  async event => {
   }
 }
 
-/*
 
-<BlogList
-                                    blogs = {blogs}
-                                    handleLike = {handleLikeUpdate}
-                                    handleDelete = {handleDelete}
-                                  />
-       <Route path="/login"> 
-                                <LoginForm
-                                    handleLogin={handleLogin}
-                                    username={username}
-                                    password={password}
-                               />
-                              </Route>e>
-
-*/
   const loginForm = () =>{
     return (
       <div className = "wrapper-box" >
@@ -303,23 +291,26 @@ const handleDelete = blogId =>  async event => {
     if (blogs.length){
     return(
       <div className = "wrapper-box" >
-                          <Header user ={loginUser.username} />
+                          <Header 
+                            handleLogout = {handleLogout}
+                            />
                           <h2>Blogs App</h2>
                           
                           <Notification />
                           <Switch> 
+                              <Route path="/users/:id">
+                                   <User />
+                              </Route> 
                               <Route path="/users">
                                   <Users />
                               </Route>
-                               <Route path="/users/:id">
-                                   <User />
-                              </Route>  
+                               
                               <Route path="/blogs/:id">
                                    <BlogInfo 
                                         handleLike = {handleLikeUpdate}
                                     />
                               </Route>
-                                                         
+                                      
                               <Route path="/">
                                   <Togglable buttonLabel="create" ref ={addBlogFormRef} >
                                       <AddBlogForm 

@@ -4,8 +4,7 @@ import blogService from "../services/blogs"
 
 const initialState = {
   username: "",
-  name: "",
-  id: ""
+  name: ""
 }
 
 export const setUser = user => {
