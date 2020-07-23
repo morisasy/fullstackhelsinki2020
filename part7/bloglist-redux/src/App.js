@@ -58,6 +58,7 @@ function App() {
   const title = useField("text")
   const author = useField("text")
   const url = useField("text")
+  const comment = useField("text")
 
   // create AddblogForm reference
   const addBlogFormRef = React.createRef()
@@ -330,14 +331,14 @@ const handleDelete = blogId =>  async event => {
 
 
   return (
-    <div className = "wrapper">
+    <main className = "wrapper">
       <Router>
                  {loginUser.length ===0 ? loginForm(): display()}          
                <Footer />
       </Router>
         
        
-   </div>
+   </main>
   )
 }
 

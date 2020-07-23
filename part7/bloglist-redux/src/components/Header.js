@@ -26,16 +26,17 @@ const Header = ({handleLogout}) => {
 
     return (
       <header style={headerStyle}>
-         <Link style={padding} to="/blogs">blogs</Link>
-         <Link style={padding} to="/users">users</Link>
-         <em> {currentUser} logged in</em>
-                                      <Button 
-                                        style={padding} 
-                                        onClick={handleLogout} 
-                                        text = "Logout"
-                                        />
-          
-          
+            <nav>
+                    <Link style={padding} to="/blogs">blogs</Link>
+                    <Link style={padding} to="/users">users</Link>
+                    <em> {currentUser} logged in</em>
+                                                  <Button 
+                                                    style={padding} 
+                                                    onClick={handleLogout} 
+                                                    text = "Logout"
+                                                    />
+
+            </nav>            
       </header> 
     )
   }

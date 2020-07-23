@@ -48,6 +48,6 @@ AddBlogFrom.propTypes = {
     title: PropTypes.object.isRequired,
     author: PropTypes.object.isRequired,
     url: PropTypes.object.isRequired
-  }
+ }
 
 export default AddBlogFrom;
