@@ -38,13 +38,11 @@ function App() {
   const dispatch = useDispatch()
   const blogs = useSelector( state => state.blogs)
   const users = useSelector( state => state.users)
-  //const user = useSelector( ({user}) => user? user : null)
-  //const user = useSelector( ({user}) => user)
+ 
 
   // current login user 
   const [loginUser, setLoginUser] =  useState('')
-  //console.log('users: ', users)
- // console.log('useSelector: user: ', user)
+ 
  
 
 

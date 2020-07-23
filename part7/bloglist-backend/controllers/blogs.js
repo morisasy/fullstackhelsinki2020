@@ -1,6 +1,7 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const Comment = require("../models/comment")
 const jwt = require('jsonwebtoken')
 
 
@@ -28,7 +29,6 @@ blogsRouter.post('/', async(request, response, next) => {
       author: body.author,
       url: body.url,
       likes: body.likes ? body.likes : 0,
-      comments: [],
       user: user._id
     })
 
@@ -42,11 +42,12 @@ blogsRouter.post('/', async(request, response, next) => {
 })
 
 
-
+// Getting all the blog posts
 blogsRouter.get('/', async(request, response) => {
   const blogs = await Blog
     .find({})
-    .populate('user')
+    .populate('user', { username: 1, name: 1 })
+    .populate("comments", { comment: 1 })
   response.json(blogs.map(blog => blog.toJSON()))
 })
 
@@ -64,6 +65,7 @@ blogsRouter.get('/info', async (req, res, next) => {
   }
 })
 
+// Getting  individual blog posts
 blogsRouter.get('/:id', async(request, response, next) => {
 
   try {
@@ -79,7 +81,7 @@ blogsRouter.get('/:id', async(request, response, next) => {
 
 })
 
-
+// Deleting blog posts
 blogsRouter.delete('/:id', async(request, response, next) => {
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
@@ -97,7 +99,8 @@ blogsRouter.delete('/:id', async(request, response, next) => {
     next(exception)
   }
 })
-
+ 
+// Updating existing blog post
 blogsRouter.put('/:id', async(request, response, next) => {
   const body = request.body
   const blogToUpdate = {
@@ -105,7 +108,6 @@ blogsRouter.put('/:id', async(request, response, next) => {
     author: body.author,
     likes: body.likes === undefined ? 0 : body.likes,
     url: body.url,
-    comments: body.comments,
     date: new Date()
   }
 
@@ -119,36 +121,25 @@ blogsRouter.put('/:id', async(request, response, next) => {
   }
 })
 
-blogsRoute.get('/:id/comments', async (request, response) => {
-  const blog = await Blog
-      .findById(request.params.id)
-      .populate('comments', { comment: 1, blogID: 1, id: 1 })
-  response.json(blog.comments.map(b => b.toJSON()))
-})
-
-blogsRoute.post('/:id/comments', async (request, response, next) => {
+// Posting a comment
+blogsRouter.post("/:id/comments", async (request, response, next) => {
   const body = request.body
+  console.log("Blogs: Body: Comments:", body)
   try {
-   
-    if (body.content === undefined) {
-      return response.status(400).json({ error: 'empty content!' })
-    }
-
+    const blog = await Blog.findById(request.params.id)
     const comment = new Comment({
-      comment: body.content,
-      blogID: request.params.id.toString()
+      comment: body.comment,
+      blog: blog._id
     })
 
     const savedComment = await comment.save()
-
-    const blog = await Blog.findById(request.params.id)
-    blog.comments = blog.comments.concat(savedComment)
+    blog.comments.push(savedComment)
     await blog.save()
-
-    response.json(blog.toJSON())
+    response.status(201).json(savedComment)
   } catch (exception) {
     next(exception)
   }
 })
+
 
 module.exports = blogsRouter

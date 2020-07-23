@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types"
+import { useField } from "../hooks"
 
 
-const CommentForm = ({ handleComment, comment}) =>{
-    console.log("comment: ", comment)
-    
+const CommentForm = ({handleComment, comment}) =>{
+      
 
    return(
         <section className = "form-group">
@@ -28,7 +28,7 @@ const CommentForm = ({ handleComment, comment}) =>{
 
 CommentForm.propTypes = {
     handleComment: PropTypes.func.isRequired,
-    comment: PropTypes.object.isRequired,
+    comment:PropTypes.object.isRequired,
  }
 
 export default CommentForm

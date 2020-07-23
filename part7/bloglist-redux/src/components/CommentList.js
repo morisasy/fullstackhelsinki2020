@@ -6,17 +6,19 @@
         } from "react-router-dom"
 
 
+
 const CommentList = ({ blog }) => {
     console.log(" list of comment: blog: ", blog)
+    const comments = blog.comments
     return(
-      <div>
+      <section>
         <h3>comments</h3>
         <ul>
-            {blog.comments.map(b =>
-            <li key={b.id}>{b.comment}</li>
+            {comments.map(comment =>
+            <li key={comment.id}>{comment.comment}</li>
             )}
         </ul>
-      </div>
+      </section>
     )
   }
 

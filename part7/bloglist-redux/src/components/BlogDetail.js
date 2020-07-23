@@ -2,6 +2,9 @@ import React, { useState, useImperativeHandle } from 'react'
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import Button from './Button'
+import CommentForm from './CommentForm'
+import CommentList from './CommentList'
+
 
 
 const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
@@ -44,7 +47,8 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
 
   BlogDetail.propTypes = {
     handleLikeChange: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired
+    handleDelete: PropTypes.func.isRequired,
+    blog: PropTypes.object.isRequired
   }
 
 export default BlogDetail
