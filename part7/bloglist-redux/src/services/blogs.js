@@ -51,6 +51,7 @@ const remove = async id => {
 
 
 const addComment = async (id, comment) => {
+  console.log('services: comment', comment)
   const config = {
     headers: { Authorization: token }
   }

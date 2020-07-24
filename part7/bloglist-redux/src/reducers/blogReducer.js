@@ -17,6 +17,30 @@ const blogReducer = (state = [], action) => {
       return state
         .filter(blog => blog.id !== action.data.id)
         .sort((a, b) => b.likes - a.likes)
+  
+    case 'ADD_COMMENT':
+      console.log('action.date', action.data)
+      const Id = action.data.id
+      const comment = action.data.comment
+      console.log('commentID: ', Id)
+      console.log('comment: ', comment)
+
+      const blogToComment = state.find(blog => blog.id === Id)
+      console.log('BlogToComment: ', blogToComment)
+      const changedComments = blogToComment.comments
+      changedComments.push(comment)
+      const commentedBlog = {
+        ...blogToComment,
+        comments: changedComments
+      }
+      const updatedComment = blogToComment.comments.concat(comment)
+      const commentToAdd = {
+         ...blogToComment, 
+         comments: updatedComment
+        }
+       console.log('commentedBlog: ',commentedBlog)
+      console.log('BlogToAdd: ', commentToAdd)
+      return commentToAdd
     default:
       return state
     }
@@ -68,14 +92,16 @@ export const initializeBlogs = () => {
 }
 
 
-export const addComment = (blog, newComment) => {
-  const id = blog.id
+export const addComment = (id, comment) => {
+
+  console.log( 'add comment id:' ,id)
+  console.log( 'add comment comment:' , comment)
   return async dispatch => {
-    const updatedBlog = await blogService.addComment(id, { newComment })
-    console.log("updatedBlog: ", updatedBlog)
+   let newBlog = await blogService.addComment(id, { comment })
+   console.log( 'new Blog:' , newBlog)
     dispatch({
-      type: ADD_COMMENT,
-      data: updatedBlog
+      type: 'Add_COMMENT',
+      data: newBlog
     })
   }
 }

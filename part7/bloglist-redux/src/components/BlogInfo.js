@@ -4,7 +4,6 @@ import {
   useRouteMatch,
   Link
 } from "react-router-dom"
-import { useSelector} from 'react-redux'
 import PropTypes from "prop-types"
 import Button from './Button'
 import CommentForm from './CommentForm'
@@ -22,7 +21,7 @@ const BlogInfo = ({handleLike}) => {
   const comment = useField('text')
   const match= useRouteMatch('/blogs/:id')
   const isBlog = (blog) => {
-    console.log( "isMatch ", match)
+   // console.log( "isMatch ", match)
     return blog.id === match.params.id
 
   }
@@ -33,11 +32,12 @@ const BlogInfo = ({handleLike}) => {
   console.log("blog list component: blogs: ", blog)
 
 
-  const handleComment = async (event) => {
-
-    preventDefault()
+  const handleComment = async (e) => {
+    e.preventDefault()
     const newComment = comment.inputProps.value
-    dispatch(addComment(blog.id, newComment))
+    const id = blog.id
+    console.log( 'comment id: blog.is', id)
+    dispatch(addComment(id, newComment))
    // setComment('')
     comment.reset('')
   }
@@ -63,12 +63,12 @@ const BlogInfo = ({handleLike}) => {
               </section>
                   
               <section>
-               <h4>Comments</h4>
+          
                <CommentForm
                     handleComment = {handleComment}
                     comment = {comment}
                 />
-               <CommentList blog = {blog} />
+               <CommentList blogId = {blog.id} />
                 
               </section>
                   

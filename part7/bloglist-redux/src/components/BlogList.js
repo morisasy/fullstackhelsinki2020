@@ -22,7 +22,7 @@ const BlogList = ({blog}) => {
 
 
 BlogList.propTypes = {
-    blog: PropTypes.object.isRequired,
+    blog: PropTypes.array.isRequired,
   }
 
 
