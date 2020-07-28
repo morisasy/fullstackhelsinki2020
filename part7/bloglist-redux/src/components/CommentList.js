@@ -5,41 +5,34 @@
   import {
           Link
         } from "react-router-dom"
+import blogs from '../services/blogs'
 
 
 
+const CommentList = ({comments }) => {
+    console.log(" list of comment: blog: ", comments)
 
-const CommentList = ({ blogId }) => {
-    console.log(" list of comment: blog: ", blogId)
-
-  //const blog = useSelector(state => state.blogs.filter(blog.blog ===blogId))
-  const blogComments = useSelector(state => state.blogs)
-  console.log(" list of comment: blogs: ", blogComments)
-  //const blogs  = blogComments.filter(comm.id === blogId)
-    const comments = blogComments
-    return <diV></diV>
-    /*
-    if (comments.length === null) {
-      return <div></div>
+    if (comments) {
+      return (
+            <section>     
+              <ul className = "comments">
+                  {comments.map((comment, index)=>
+                  <li key={index}>{comment.comment}</li>
+                  )}
+              </ul>
+            </section>)
     } else {
       return(
-        <section>
-          <h3>comments</h3>
-          <ul>
-              {comments.map(comment =>
-              <li key={comment.id}>{comment.comment}</li>
-              )}
-          </ul>
-        </section>
+        <div></div>
       )
 
     }
-    */
+    
     
   }
 
   CommentList.propTypes = {
-    blogId: PropTypes.string.isRequired
+    comments: PropTypes.array.isRequired
   }
 
 export default CommentList

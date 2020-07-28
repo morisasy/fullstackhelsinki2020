@@ -17,6 +17,7 @@ const BlogInfo = ({handleLike}) => {
 
   // get the id of the  blog
   const [userInfo, setUserInfo] = useState('')
+  const  [blogId, setBlogId] = useState(null)
   //const [newComment, setNewComment] = useState('')
   const comment = useField('text')
   const match= useRouteMatch('/blogs/:id')
@@ -29,7 +30,8 @@ const BlogInfo = ({handleLike}) => {
 
   const blog = useSelector(state => state.blogs.find(isBlog))
   console.log( "blog ", blog)
-  console.log("blog list component: blogs: ", blog)
+  const blogComment = blog.comments
+  console.log("blog list component: blogs: ", blogComment)
 
 
   const handleComment = async (e) => {
@@ -54,7 +56,7 @@ const BlogInfo = ({handleLike}) => {
                   </p>
                   <p>
                       {blog.likes} likes <Button onClick={handleLike} text = "like"/>
-                   </p>
+                  </p>
                   <p>
                     added by &nbsp;
                   <Link to={`blogs/${blog.user.id}`}>{blog.user.name}</Link>
@@ -68,7 +70,7 @@ const BlogInfo = ({handleLike}) => {
                     handleComment = {handleComment}
                     comment = {comment}
                 />
-               <CommentList blogId = {blog.id} />
+               <CommentList comments = {blogComment} />
                 
               </section>
                   

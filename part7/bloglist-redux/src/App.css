@@ -70,6 +70,15 @@
     font-size: 15px;
     border: 1px solid black;
   }
+
+#comments li{
+  color: #282c34;
+    padding-top: 3px;
+    font-size: 15px;
+    /* border: 1px solid black; */
+    list-style-type: square;
+  border: none;
+}
   
   .blog{
     color: grey;
