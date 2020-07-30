@@ -20,6 +20,7 @@
 - npm run cypress:open
 - npm install eslint-plugin-cypress --save-dev
 - npm install --save styled-components
+- npm install --save react-bootstrap
 
 
 

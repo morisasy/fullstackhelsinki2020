@@ -31,6 +31,8 @@ import { initializeBlogs,
         createBlog,
         remove } from './reducers/blogReducer'
 import BlogInfo from "./components/BlogInfo"
+import Navbar from 'react-bootstrap/Navbar'
+import Alert from 'react-bootstrap/Alert'
 
 
 
@@ -42,6 +44,7 @@ function App() {
 
   // current login user 
   const [loginUser, setLoginUser] =  useState('')
+  const [message, setMessage] = useState(null)
  
  
 
@@ -119,7 +122,7 @@ function App() {
 
 
   //setNotification function
-  const setMessage = (content, type = "success") => {
+  const setNotification = (content, type = "success") => {
     dispatch(setNotification({ content, type }))
     setTimeout(() => dispatch(clearNotification()), 5000)
     
@@ -145,15 +148,19 @@ function App() {
       user.id = foundUser.id
       dispatch(setToken(user.token))
       dispatch(setUser(user))
+      setMessage(`welcome ${user}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 10000)
       setLoginUser(user)
       username.reset('')
       password.reset('')
       console.log("handle loging: login.username ", user)
       console.log("HANDLE LOGIN TOKEN", user.token)
-     setMessage(` You have login `)
+  
       
     } catch (exception) {
-      setMessage(` Wrong username or password`, 'error')
+      setMessage(` Wrong username or password`)
   
   
     }
@@ -181,7 +188,7 @@ const handleAddBlog = async (event) => {
   
       dispatch(createBlog(newBlog))
       //setBlogs([...blogs, blogCreated])
-      setMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`)
+      setNotification(`a new blog added: ${newBlog.title} by ${newBlog.author}`)
       
       title.reset('')
       author.reset('')
@@ -189,8 +196,13 @@ const handleAddBlog = async (event) => {
       // Notification displays only 5s
   
     } catch (error) {
-     setMessage(`Something went wrong  ${error}`, "error")
-  
+    // setNotification(`Something went wrong  ${error}`, "error")
+
+          setMessage(`Something went wrong  ${error}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 10000)
+        
   }
 }
 
@@ -227,11 +239,11 @@ const handleLikeUpdate = blogId =>  async event => {
      dispatch(update(blogToUpdate))
  
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
-    setMessage(
+    setNotification(
        `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
        )
   } catch (error) {
-    setMessage(`Something went wrong  ${error}`, 'error')
+    setNotification(`Something went wrong  ${error}`, 'error')
     
   }
 }
@@ -262,12 +274,12 @@ const handleDelete = blogId =>  async event => {
      dispatch(remove(blogToDelete))
      /// console.log( "updated blog", deletedBlog)
      // setBlogs(newBlogList)
-      dispatch(setMessage(
+      setNotification(
          `Blog post ${blogToDelete.title} deleted`, 'success'
-         ))
+         )
     
     } catch (error) {
-      setMessage(`Something went wrong  ${error}`, 'error')
+      setNotification(`Something went wrong  ${error}`, 'error')
       
     }
   }
@@ -276,7 +288,7 @@ const handleDelete = blogId =>  async event => {
 
   const loginForm = () =>{
     return (
-      <div className = "wrapper-box" >
+      <div className = "container" >
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
@@ -289,11 +301,16 @@ const handleDelete = blogId =>  async event => {
   const display = () =>{
     if (blogs.length){
     return(
-      <div className = "wrapper-box" >
+      <div className = "container" >
                           <Header 
                             handleLogout = {handleLogout}
                             />
                           <h2>Blogs App</h2>
+                          {(message &&
+                              <Alert variant="success">
+                                {message}
+                              </Alert>
+                            )}
                           
                           <Notification />
                           <Switch> 

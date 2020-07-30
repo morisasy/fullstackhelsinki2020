@@ -1,11 +1,6 @@
 
   import React from 'react'
-  import { useSelector, useDispatch } from 'react-redux'
   import PropTypes from "prop-types"
-  import {
-          Link
-        } from "react-router-dom"
-import blogs from '../services/blogs'
 
 
 
@@ -15,9 +10,9 @@ const CommentList = ({comments }) => {
     if (comments) {
       return (
             <section>     
-              <ul className = "comments">
+              <ul className ="list-group">
                   {comments.map((comment, index)=>
-                  <li key={index}>{comment.comment}</li>
+                  <li key={index} className="list-group-item" >{comment.comment}</li>
                   )}
               </ul>
             </section>)

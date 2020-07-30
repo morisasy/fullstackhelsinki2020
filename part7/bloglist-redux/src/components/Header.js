@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
 import { useSelector } from 'react-redux'
 import Button from './Button'
-
+import {Navbar, Nav} from 'react-bootstrap'
 const Header = ({handleLogout}) => {
 
   const login = useSelector( state => state.login)
@@ -12,7 +12,7 @@ const Header = ({handleLogout}) => {
   const [currentUser, setCurrentUser] = useState(login.username)
 
     const headerStyle = {
-      backgroundcolor: 'grey',
+      backgroundcolor: '#343a40',
       padding: 10,
       fontStyle: 'italic',
       fontSize: 16,
@@ -22,21 +22,36 @@ const Header = ({handleLogout}) => {
     const padding = {
       padding: 5,
     }
+    const nav = { width:'100%' }
    
 
     return (
-      <header style={headerStyle}>
-            <nav>
-                    <Link style={padding} to="/blogs">blogs</Link>
-                    <Link style={padding} to="/users">users</Link>
-                    <em> {currentUser} logged in</em>
-                                                  <Button 
+      <header >
+  
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto" >
+                <Nav.Link href="" as="span">
+                  <Link style={padding} to="/blogs">blogs</Link>
+                </Nav.Link>
+                <Nav.Link href="#" as="span">
+                  <Link style={padding} to="/users">users</Link>
+                </Nav.Link>
+                <Nav.Link href="#" as="span">
+                  {currentUser
+                    ? <em>{currentUser} logged in</em>
+                    : <Link to="/login">login</Link>
+                  }
+              </Nav.Link>
+              </Nav>
+              <Button 
                                                     style={padding} 
                                                     onClick={handleLogout} 
                                                     text = "Logout"
                                                     />
-
-            </nav>            
+            </Navbar.Collapse>
+          </Navbar>            
       </header> 
     )
   }

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import {
         Link
       } from "react-router-dom"
+import { Table } from 'react-bootstrap'
 
 const Blogs = ({blogs}) => {
 console.log("blog list component: blogs: ", blogs)
@@ -20,12 +21,12 @@ const showBlogList = () => {
 
   return (
     <div>
-            <table>
+            <Table striped>
                     <tbody>
                                 {showBlogList()}
                     </tbody>
                     
-            </table>
+            </Table>
     </div>
      )    
 
