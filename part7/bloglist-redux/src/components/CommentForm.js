@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from "prop-types"
-import { useField } from "../hooks"
 
 
 const CommentForm = ({handleComment, comment}) =>{

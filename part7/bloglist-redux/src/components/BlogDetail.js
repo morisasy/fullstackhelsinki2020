@@ -28,6 +28,7 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
     return (
       <>
           <div style={showStyle} className="blog-detail" >
+                  <h3>Blog app</h3>
                   
                   <p>
                     <Link to= "/" >{blog.url}</Link>
@@ -36,8 +37,8 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
                       {blog.likes} likes <Button onClick={handleLike} text = "like"/>
                     </p>
                   <p>
-                    added by &nbsp;
-                   <Link to={`blogs/${blog.user.id}`}>{blog.user.name}</Link>
+                    added by &nbsp; {blog.user.name}
+                   
                   </p>
                   <Button onClick={handleDelete} text = "remove"/>
           </div>

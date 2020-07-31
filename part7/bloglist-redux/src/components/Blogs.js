@@ -7,6 +7,9 @@ import { Table } from 'react-bootstrap'
 
 const Blogs = ({blogs}) => {
 console.log("blog list component: blogs: ", blogs)
+const padding = {
+        paddingTop: 15
+      }
 
 const showBlogList = () => {
     const sortedList = blogs.sort((a, b) => b.likes - a.likes)
@@ -20,7 +23,7 @@ const showBlogList = () => {
   }
 
   return (
-    <div>
+    <div style= {padding}>
             <Table striped>
                     <tbody>
                                 {showBlogList()}

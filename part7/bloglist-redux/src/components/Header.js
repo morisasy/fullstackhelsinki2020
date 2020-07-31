@@ -1,32 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
 import { useSelector } from 'react-redux'
 import Button from './Button'
 import {Navbar, Nav} from 'react-bootstrap'
-const Header = ({handleLogout}) => {
+const Header = ({handleLogout, loginUser}) => {
 
   const login = useSelector( state => state.login)
   console.log('header Login:', login)
 
-  const [currentUser, setCurrentUser] = useState(login.username)
-
-    const headerStyle = {
-      backgroundcolor: '#343a40',
-      padding: 10,
-      fontStyle: 'italic',
-      fontSize: 16,
-      display: 'flex'
-  
-    }
+    const emStyle = {color: 'white'}
     const padding = {
       padding: 5,
     }
-    const nav = { width:'100%' }
    
 
     return (
-      <header >
+      <header>
   
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,9 +29,9 @@ const Header = ({handleLogout}) => {
                   <Link style={padding} to="/users">users</Link>
                 </Nav.Link>
                 <Nav.Link href="#" as="span">
-                  {currentUser
-                    ? <em>{currentUser} logged in</em>
-                    : <Link to="/login">login</Link>
+                  {loginUser
+                    ? <em style ={emStyle}>{loginUser} logged in</em>
+                    : <Redirect to="/login" />
                   }
               </Nav.Link>
               </Nav>

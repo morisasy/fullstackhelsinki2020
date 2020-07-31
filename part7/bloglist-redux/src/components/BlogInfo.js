@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useRouteMatch,
@@ -15,10 +15,7 @@ import { useField } from "../hooks"
 const BlogInfo = ({handleLike}) => {
   const dispatch = useDispatch()
 
-  // get the id of the  blog
-  const [userInfo, setUserInfo] = useState('')
-  const  [blogId, setBlogId] = useState(null)
-  //const [newComment, setNewComment] = useState('')
+
   const comment = useField('text')
   const match= useRouteMatch('/blogs/:id')
   const isBlog = (blog) => {

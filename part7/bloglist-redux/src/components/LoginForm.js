@@ -2,11 +2,13 @@
 import React from 'react';
 import PropTypes from "prop-types"
 import Notification from './Notification'
-import { Table, Form, Button } from 'react-bootstrap'
+
 
 const LoginForm = ({ handleLogin, username, password}) => {
-
-
+ 
+const formStyle = {
+  
+}
   return ( 
         <div className ="form-login">
                 <h2>login</h2>

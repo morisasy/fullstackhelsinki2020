@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  useRouteMatch,
+  Route
 } from "react-router-dom"
 import './App.css'
-import Button from './components/Button'
 import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
 import AddBlogForm from './components/AddBlogForm'
@@ -31,7 +29,6 @@ import { initializeBlogs,
         createBlog,
         remove } from './reducers/blogReducer'
 import BlogInfo from "./components/BlogInfo"
-import Navbar from 'react-bootstrap/Navbar'
 import Alert from 'react-bootstrap/Alert'
 
 
@@ -45,6 +42,7 @@ function App() {
   // current login user 
   const [loginUser, setLoginUser] =  useState('')
   const [message, setMessage] = useState(null)
+  const [alertType, setAlertType] = useState(null)
  
  
 
@@ -59,7 +57,6 @@ function App() {
   const title = useField("text")
   const author = useField("text")
   const url = useField("text")
-  const comment = useField("text")
 
   // create AddblogForm reference
   const addBlogFormRef = React.createRef()
@@ -97,8 +94,6 @@ function App() {
   }, [])
  
 
-    // find a user
-    const findUser = id => users.find(user => user.id === id)
     // find a blog
     const findBlog = id => blogs.find(blog => blog.id === id)
 
@@ -109,18 +104,7 @@ function App() {
     // find all the blog except blog list with a particular id 
     const findBlogList = id => blogs.filter(blog => blog.id !== id)
 
-    //parameterize route visited
-    // get the id of the blog visited 
-    // find the current blog
-   // const matchBlogId = useRouteMatch('/blogs/:id')
-    //const blogFound = matchBlogId ? findBlog(matchBlogId): null
-
-    // get the id of the individual user  
-    //const matchUsersId = useRouteMatch('/users/:id')
-    //const usersFound = matchUsersId ? findUser(matchUsersId): null
-
-
-
+  
   //setNotification function
   const setNotification = (content, type = "success") => {
     dispatch(setNotification({ content, type }))
@@ -138,6 +122,7 @@ function App() {
         password: password.inputProps.value
       })
       console.log("user services", user)
+      setLoginUser(user.username)
 
       window.localStorage.setItem(
         'loggedBlogListappUser', JSON.stringify(user)
@@ -148,11 +133,12 @@ function App() {
       user.id = foundUser.id
       dispatch(setToken(user.token))
       dispatch(setUser(user))
-      setMessage(`welcome ${user}`)
+      setMessage(`welcome ${user.username}`)
+      setAlertType('success')
       setTimeout(() => {
         setMessage(null)
       }, 10000)
-      setLoginUser(user)
+     
       username.reset('')
       password.reset('')
       console.log("handle loging: login.username ", user)
@@ -161,6 +147,7 @@ function App() {
       
     } catch (exception) {
       setMessage(` Wrong username or password`)
+      setAlertType('danger')
   
   
     }
@@ -289,6 +276,15 @@ const handleDelete = blogId =>  async event => {
   const loginForm = () =>{
     return (
       <div className = "container" >
+                       <Header 
+                               handleLogout = {handleLogout}
+                               loginUser = {loginUser}
+                            />
+                             {(message &&
+                              <Alert variant={alertType}>
+                                {message}
+                              </Alert>
+                            )}
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
@@ -302,19 +298,20 @@ const handleDelete = blogId =>  async event => {
     if (blogs.length){
     return(
       <div className = "container" >
-                          <Header 
-                            handleLogout = {handleLogout}
-                            />
-                          <h2>Blogs App</h2>
-                          {(message &&
-                              <Alert variant="success">
+                           {(message &&
+                              <Alert variant={alertType}>
                                 {message}
                               </Alert>
                             )}
+                          <Header 
+                            handleLogout = {handleLogout}
+                            loginUser = {loginUser}
+                            />
                           
                           <Notification />
                           <Switch> 
                               <Route path="/users/:id">
+                              { <h3>Blog </h3>}
                                    <User />
                               </Route> 
                               <Route path="/users">
@@ -328,6 +325,7 @@ const handleDelete = blogId =>  async event => {
                               </Route>
                                       
                               <Route path="/">
+                                { <h3>Blog App </h3>}
                                   <Togglable buttonLabel="create" ref ={addBlogFormRef} >
                                       <AddBlogForm 
                                         handleAddBlog={handleAddBlog}

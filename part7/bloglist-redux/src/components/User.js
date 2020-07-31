@@ -3,7 +3,7 @@ import {
   useRouteMatch
 } from "react-router-dom"
 import { useSelector} from 'react-redux'
-import PropTypes from "prop-types"
+
 
 
 
@@ -16,23 +16,26 @@ const User = () => {
     return user.id === match.params.id
 
   }
-
+ 
 
   const user = useSelector(state => state.users.find(isUser))
   console.log( "user ", user)
 
-
+    const h2Style = {
+      marginBottom: 10
+    }
     if (!user) {
       return null
     }
   
     return (
       <div>
-          <h2>{user.username}</h2>
-          <h4> Blogs added </h4>
-          <ul>
+          <h2 sytle ={h2Style} >{user.username}</h2>
+          <h5> Blog added </h5>
+
+          <ul className="list-group" >
             {user.blogs.map(blog => (
-              <li key={blog.id}>
+              <li key={blog.id} className="list-group-item" >
                     <span>{`${blog.title}`}</span>    
               </li>
             ))}

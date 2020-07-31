@@ -6,12 +6,7 @@ const AddBlogFrom = ( { handleAddBlog,
                         title, 
                         author,
                         url}) =>{
-  //console.log("add form: ", props)
- /* const { handleAddBlog,
-          title, 
-          author,
-          url} = props
-          */
+
     
 
    return(
@@ -37,7 +32,7 @@ const AddBlogFrom = ( { handleAddBlog,
                         </div>
                         <div className = "form-group-control">
                         <button type="submit">Create</button>
-                        </div>
+                      </div>
             </form>
         </div>
     )
