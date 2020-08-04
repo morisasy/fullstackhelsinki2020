@@ -4,14 +4,14 @@ html, body {
 .wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
+
 .container {
-  height: 100%;
-  flex: 1 0 auto;
+  min-height: calc(100vh - 70px);
 }
-#footer {
-  flex-shrink: 0;
-  height: 100px;
+footer {
+  height: 50px;
 }
 .error {
     color: red;
