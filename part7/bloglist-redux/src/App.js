@@ -43,6 +43,7 @@ function App() {
   const [loginUser, setLoginUser] =  useState('')
   const [message, setMessage] = useState(null)
   const [alertType, setAlertType] = useState(null)
+  const [isDeleted, setIsDeleted] = useState(false)
  
  
 
@@ -226,11 +227,13 @@ const handleLikeUpdate = blogId =>  async event => {
      dispatch(update(blogToUpdate))
  
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
+    /*
     setNotification(
        `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
        )
+       */
   } catch (error) {
-    setNotification(`Something went wrong  ${error}`, 'error')
+    //setNotification(`Something went wrong  ${error}`, 'error')
     
   }
 }
@@ -260,13 +263,15 @@ const handleDelete = blogId =>  async event => {
      // const deletedBlog = await  blogService.remove(blogId)
      dispatch(remove(blogToDelete))
      /// console.log( "updated blog", deletedBlog)
-     // setBlogs(newBlogList)
+     // setBlogs(newBlogLi
+     /*
       setNotification(
          `Blog post ${blogToDelete.title} deleted`, 'success'
          )
+         */
     
     } catch (error) {
-      setNotification(`Something went wrong  ${error}`, 'error')
+     // setNotification(`Something went wrong  ${error}`, 'error')
       
     }
   }
@@ -321,6 +326,7 @@ const handleDelete = blogId =>  async event => {
                               <Route path="/blogs/:id">
                                    <BlogInfo 
                                         handleLike = {handleLikeUpdate}
+                                        handleDelete = {handleDelete}
                                     />
                               </Route>
                                       

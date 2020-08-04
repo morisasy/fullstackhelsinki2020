@@ -7,6 +7,10 @@
 const CommentList = ({comments }) => {
     console.log(" list of comment: blog: ", comments)
 
+    if (!comments) {
+      return null
+    }
+
     if (comments) {
       return (
             <section>     

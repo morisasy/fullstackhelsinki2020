@@ -2,7 +2,9 @@ import React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useRouteMatch,
-  Link
+  Link,
+  Redirect,
+   Route
 } from "react-router-dom"
 import PropTypes from "prop-types"
 import Button from './Button'
@@ -12,7 +14,7 @@ import { addComment } from '../reducers/blogReducer'
 import { useField } from "../hooks"
 
 
-const BlogInfo = ({handleLike}) => {
+const BlogInfo = ({handleLike, handleDelete}) => {
   const dispatch = useDispatch()
 
 
@@ -27,8 +29,17 @@ const BlogInfo = ({handleLike}) => {
 
   const blog = useSelector(state => state.blogs.find(isBlog))
   console.log( "blog ", blog)
-  const blogComment = blog.comments
-  console.log("blog list component: blogs: ", blogComment)
+ //const blogComment = blog.comments? blog.comments : null
+ // console.log("blog list component: blogs: ", blogComment)
+ if (!blog) {
+  return (
+    <div>
+        <Route>
+          <Redirect to="/blogs" />
+        </Route>
+     </div>
+  )
+}
 
 
   const handleComment = async (e) => {
@@ -52,8 +63,12 @@ const BlogInfo = ({handleLike}) => {
                     <a href={blog.url}>{blog.url}</a>
                   </p>
                   <p>
-                      {blog.likes} likes <Button onClick={handleLike} text = "like"/>
+                      {blog.likes} likes <Button onClick={handleLike(match.params.id)} text = "like"/>
                   </p>
+                  <p>
+                     <Button onClick={handleDelete(match.params.id)} text = "delete"/>
+                  </p>
+                  
                   <p>
                     added by &nbsp;
                   <Link to={`blogs/${blog.user.id}`}>{blog.user.name}</Link>
@@ -67,8 +82,10 @@ const BlogInfo = ({handleLike}) => {
                     handleComment = {handleComment}
                     comment = {comment}
                 />
-               <CommentList comments = {blogComment} />
-                
+                {(blog.comments && <CommentList 
+                               comments = {blog.comments} 
+                               />
+                            )} 
               </section>
                   
           </div>
