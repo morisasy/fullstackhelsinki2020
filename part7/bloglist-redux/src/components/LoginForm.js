@@ -11,7 +11,7 @@ const formStyle = {
 }
   return ( 
         <div className ="form-login">
-                <h2>login</h2>
+                <h2>Login</h2>
                 <Notification />
                 <form onSubmit={handleLogin} id ="login" >
                         <div class="form-group row">
