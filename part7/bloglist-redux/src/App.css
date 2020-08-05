@@ -13,6 +13,16 @@ html, body {
 footer {
   height: 50px;
 }
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+#login {
+  width: 60%;
+  margin: auto;
+}
 .error {
     color: red;
     background: lightgray;

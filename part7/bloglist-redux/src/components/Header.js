@@ -6,8 +6,8 @@ import Button from './Button'
 import {Navbar, Nav} from 'react-bootstrap'
 const Header = ({handleLogout, loginUser}) => {
 
-  const login = useSelector( state => state.login)
-  console.log('header Login:', login)
+  //const login = useSelector( state => state.login)
+  //console.log('header Login:', login)
 
     const emStyle = {color: 'white'}
     const padding = {

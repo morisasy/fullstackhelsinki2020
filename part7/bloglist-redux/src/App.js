@@ -64,6 +64,7 @@ function App() {
 
 
 
+
   // getting blogList / initializeblog
   
   useEffect(() => {
@@ -82,7 +83,8 @@ function App() {
 
 // get user information from localStorage
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("blogAppUser")
+    
+  const loggedUserJSON = window.localStorage.getItem("blogListAppUser")
     console.log("Get user information from localStorage")
     if (loggedUserJSON) {
       // get user information from localStorage when user exist
@@ -123,10 +125,10 @@ function App() {
         password: password.inputProps.value
       })
       console.log("user services", user)
-      setLoginUser(user.username)
+      setLoginUser(user)
 
       window.localStorage.setItem(
-        'loggedBlogListappUser', JSON.stringify(user)
+        'blogListAppUser', JSON.stringify(user)
       ) 
       const foundUser = findBlogUser(user.username)
       console.log("handle loging: found user", foundUser)
@@ -204,6 +206,7 @@ const handleLogout =  async(event) => {
   event.preventDefault()
   window.localStorage.clear()
   dispatch(logout())
+  window.location.reload(false)
   blogService.setToken(null)
   setLoginUser('')
  
@@ -281,15 +284,16 @@ const handleDelete = blogId =>  async event => {
   const loginForm = () =>{
     return (
       <div className = "container" >
-                       <Header 
-                               handleLogout = {handleLogout}
-                               loginUser = {loginUser}
-                            />
+                       
                              {(message &&
                               <Alert variant={alertType}>
                                 {message}
                               </Alert>
                             )}
+                       <Header 
+                            handleLogout = {handleLogout}
+                            loginUser = {loginUser.username}
+                            />
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
@@ -310,7 +314,7 @@ const handleDelete = blogId =>  async event => {
                             )}
                           <Header 
                             handleLogout = {handleLogout}
-                            loginUser = {loginUser}
+                            loginUser = {loginUser.username}
                             />
                           
                           <Notification />
