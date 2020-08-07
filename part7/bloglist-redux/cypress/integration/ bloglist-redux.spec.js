@@ -4,7 +4,7 @@
 
 describe('Bloglist-redux app', function() {
     beforeEach(function() {
-      cy.visit('http://localhost:3000/login')
+      cy.visit('http://localhost:3001/login')
     })
 
     it('front page can be opened', function() {
@@ -41,11 +41,11 @@ describe('Bloglist-redux app', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.request('POST', 'http://localhost:3000/api/login', {
+      cy.request('POST', 'http://localhost:3001/api/login', {
         username: 'mluukkai', password: 'salainen'
       }).then(response => {
         localStorage.setItem('blogListAppUser', JSON.stringify(response.body))
-        cy.visit('http://localhost:3000')
+        cy.visit('http://localhost:3001')
       })
     }) 
 

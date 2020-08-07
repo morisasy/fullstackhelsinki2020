@@ -1,7 +1,7 @@
 
 describe('Bloglist-redux app', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000/login')
+    cy.visit('http://localhost:3001/login')
   })
 
   it('front page can be opened', function() {
@@ -39,14 +39,14 @@ describe('Bloglist-redux app', function() {
 describe('API test data', function () {
 
     beforeEach(function () {
-              cy.request('POST', 'http://localhost:3000/api/testing/reset')
+              cy.request('POST', 'http://localhost:3001/api/testing/reset')
           
               const user = {
                 name: 'Sussan Parvianen',
                 username: 'suski',
                 password: 'salainen'
               }
-              cy.request('POST', 'http://localhost:3000/api/users/', user)
+              cy.request('POST', 'http://localhost:3001/api/users/', user)
           
           
               cy.login({

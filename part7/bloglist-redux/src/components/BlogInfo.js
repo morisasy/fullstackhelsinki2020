@@ -25,6 +25,14 @@ const BlogInfo = ({handleLike, handleDelete}) => {
     return blog.id === match.params.id
 
   }
+
+  const styleHeart = {
+    fontSsize:'500%',
+    color: 'red'
+  }
+  const styleBtnLike = {
+    borderRadius: '50%'
+  }
   //const usersFound = matchUsersId ? findUser(matchUsersId): null
 
   const blog = useSelector(state => state.blogs.find(isBlog))
@@ -63,10 +71,29 @@ const BlogInfo = ({handleLike, handleDelete}) => {
                     <a href={blog.url}>{blog.url}</a>
                   </p>
                   <p>
-                      {blog.likes} likes <Button onClick={handleLike(match.params.id)} text = "like"/>
+
+                      {blog.likes} likes <span style={styleHeart}>&hearts;</span>
+                      <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="btn-like"
+                            onClick={handleLike(match.params.id)}
+                           
+                            >
+                              like
+                         </button>
+                       
                   </p>
                   <p>
-                     <Button onClick={handleDelete(match.params.id)} text = "delete"/>
+                  <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="btn-delete"
+                            onClick={handleDelete(match.params.id)}
+                            >
+                             delete
+                         </button>
+                    
                   </p>
                   
                   <p>

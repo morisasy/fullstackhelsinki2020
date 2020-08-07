@@ -163,4 +163,9 @@ padding: .4rem 1rem !important;
   border-radius: .25rem;
 }
 
+#btn-like {
+  border-radius: .25rem;
+    border-radius: 50%;
+}
+
 

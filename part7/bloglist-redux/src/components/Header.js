@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
-import { useSelector } from 'react-redux'
 import Button from './Button'
 import {Navbar, Nav} from 'react-bootstrap'
 const Header = ({handleLogout, loginUser}) => {
