@@ -336,7 +336,7 @@ const handleDelete = blogId =>  async event => {
                                       
                               <Route path="/">
                                 { <h3>Blog App </h3>}
-                                  <Togglable buttonLabel="create" ref ={addBlogFormRef} >
+                                  <Togglable  ref ={addBlogFormRef} >
                                       <AddBlogForm 
                                         handleAddBlog={handleAddBlog}
                                         title={title}

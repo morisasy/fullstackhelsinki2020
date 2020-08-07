@@ -21,7 +21,7 @@ const formStyle = {
                                  {...username.inputProps}
                                 type="text" 
                                 class="form-control"
-                                id=" username" 
+                                id="username" 
                                 />
                           </div>
                         </div>
@@ -31,12 +31,18 @@ const formStyle = {
                             <input type="password"
                                {...password.inputProps} 
                               class="form-control" 
-                              id="inputPassword" 
+                              id="password" 
                               placeholder="Password"
                               />
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="login-button"
+                            >
+                              Login
+                        </button>
                 </form>    
         </div>    
   )

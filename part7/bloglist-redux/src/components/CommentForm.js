@@ -18,7 +18,7 @@ const CommentForm = ({handleComment, comment}) =>{
                                     />
                         </div>                     
                       <div className = "form-group-control">
-                        <button type="submit">Add Comment</button>
+                        <button type="submit" id ="btn-comment">Add Comment</button>
                      </div>
             </form>
         </section>

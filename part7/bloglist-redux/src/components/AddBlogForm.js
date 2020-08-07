@@ -10,29 +10,50 @@ const AddBlogFrom = ( { handleAddBlog,
     
 
    return(
-        <div className = "form-group">
-             <form onSubmit={handleAddBlog}>
-                      <div className = "form-group-control">
-                        Title: <input 
+        <div className = "form-group" id = "form-group-blog">
+             <form onSubmit={handleAddBlog} id ="add-blog-form">
+                      <div class="form-group row">
+                          <label for="title" class="col-sm-2 col-form-label">Title</label>
+                          <div class="col-sm-10">
+                          <input 
                                    {...title.inputProps} 
                                     required
+                                    class="form-control"
+                                    id="title" 
                                     />
-                        </div>
-                        <div className = "form-group-control">
-                        Author: <input 
-                                     {...author.inputProps} 
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="author" class="col-sm-2 col-form-label">Author</label>
+                          <div class="col-sm-10">
+                          <input 
+                                    {...author.inputProps}  
                                     required
+                                    class="form-control"
+                                    id="author" 
                                     />
-                        </div>
-                        <div className = "form-group-control">
-                        url: <input 
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="url" class="col-sm-2 col-form-label">Url</label>
+                          <div class="col-sm-10">
+                          <input 
                                     {...url.inputProps} 
                                     required
+                                    class="form-control"
+                                    id="url" 
                                     />
-                        </div>
-                        <div className = "form-group-control">
-                        <button type="submit">Create</button>
-                      </div>
+                          </div>
+                      </div>            
+                     <div className = "form-group-control">
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="create"
+                            >
+                              Create
+                         </button>
+                     </div>
             </form>
         </div>
     )

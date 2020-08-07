@@ -7,7 +7,7 @@ import {Navbar, Nav} from 'react-bootstrap'
 const Header = ({handleLogout, loginUser}) => {
 
   //const login = useSelector( state => state.login)
-  //console.log('header Login:', login)
+  console.log('header Login: LoginUser', loginUser)
 
     const emStyle = {color: 'white'}
     const padding = {

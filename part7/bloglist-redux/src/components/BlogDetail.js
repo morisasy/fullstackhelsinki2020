@@ -34,13 +34,29 @@ const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
                     <Link to= "/" >{blog.url}</Link>
                   </p>
                   <p>
-                      {blog.likes} likes <Button onClick={handleLike} text = "like"/>
+                      {blog.likes} likes 
+                      <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="btn-like"
+                            onClick={handleLike}
+                            >
+                              like
+                        </button>
                     </p>
                   <p>
                     added by &nbsp; {blog.user.name}
                    
                   </p>
-                  <Button onClick={handleDelete} text = "remove"/>
+              
+                  <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            id="btn-remove"
+                            onClick={handleDelete}
+                            >
+                            remove
+                        </button>
           </div>
       </>
     )
